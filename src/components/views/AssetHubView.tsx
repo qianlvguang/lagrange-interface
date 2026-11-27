@@ -26,21 +26,26 @@ export const AssetHubView: React.FC = () => {
     docs,
     samples,
     pipelines,
+    selectedAssetId,
+    setSelectedAssetId,
     uploadImageAsset,
     updateAssetUsage,
     openCreateDocModal,
-    setSelectedDocId,
-    setActiveTab,
+    inspectDocInRag,
+    inspectSampleInAudit,
   } = useLagrange();
 
   const [usageFilter, setUsageFilter] = useState<'all' | AssetUsage | 'unbound'>('all');
   const [query, setQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [inspectAsset, setInspectAsset] = useState<ImageAsset | null>(null);
-  const [uploadUsage, setUploadUsage] = useState<AssetUsage>('both');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const assetPipeline = pipelines.find((p) => p.id === 'asset')!;
+
+  const inspectAsset = useMemo(
+    () => (selectedAssetId ? assets.find((a) => a.id === selectedAssetId) ?? null : null),
+    [assets, selectedAssetId]
+  );
 
   const filteredAssets = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -85,14 +90,14 @@ export const AssetHubView: React.FC = () => {
         nameZh: baseName,
         nameEn: baseName,
         category: '品牌标识',
-        usage: uploadUsage,
+        usage: 'both',
         tags: ['本地入库', '待分类'],
         width: 1024,
         height: 1024,
         format,
         previewUrl: dataUrl,
       });
-      setInspectAsset(created);
+      setSelectedAssetId(created.id);
     };
     reader.readAsDataURL(file);
     e.target.value = '';
@@ -113,7 +118,9 @@ export const AssetHubView: React.FC = () => {
               status={assetPipeline.status}
               size="sm"
               showText
-              label={`图片资产管理管线 · ${assetPipeline.status === 'connected' ? '统一存储在线' : assetPipeline.status}`}
+              label={`图片资产管理管线 · ${
+                assetPipeline.status === 'connected' ? '统一存储在线' : assetPipeline.status
+              }`}
             />
             <span className="text-xs font-mono text-[#8C887F]">
               {assets.length} Assets Indexed
@@ -123,21 +130,11 @@ export const AssetHubView: React.FC = () => {
             统一图片资产管理中心
           </h1>
           <p className="text-sm text-[#5F5C55] mt-1">
-            汇集生图管线素材与 RAG 管线参考图，支持用途打标、SHA-256 溯源及一键建档为新 Doc
+            汇集生图管线素材与 RAG 管线参考图；点击任意资产卡片查看溯源详情或一键创建新 Doc
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <select
-            value={uploadUsage}
-            onChange={(e) => setUploadUsage(e.target.value as AssetUsage)}
-            className="glass-pill px-3 py-2 rounded-xl text-xs text-[#1C1B18] focus:outline-none"
-            title="新上传资产默认管线归属"
-          >
-            <option value="both">入库用途：双管线共享</option>
-            <option value="imggen">入库用途：仅生图素材</option>
-            <option value="rag">入库用途：仅 RAG 素材</option>
-          </select>
+        <div className="flex items-center gap-2">
           <input
             ref={fileInputRef}
             type="file"
@@ -161,10 +158,22 @@ export const AssetHubView: React.FC = () => {
         <div className="flex flex-wrap items-center gap-1.5">
           {[
             { id: 'all', label: `全部 (${assets.length})` },
-            { id: 'both', label: `双管线共享 (${assets.filter((a) => a.usage === 'both').length})` },
-            { id: 'imggen', label: `生图素材 (${assets.filter((a) => a.usage === 'imggen').length})` },
-            { id: 'rag', label: `RAG 素材 (${assets.filter((a) => a.usage === 'rag').length})` },
-            { id: 'unbound', label: `未绑定 Doc (${assets.filter((a) => a.boundDocIds.length === 0).length})` },
+            {
+              id: 'both',
+              label: `双管线共享 (${assets.filter((a) => a.usage === 'both').length})`,
+            },
+            {
+              id: 'imggen',
+              label: `生图素材 (${assets.filter((a) => a.usage === 'imggen').length})`,
+            },
+            {
+              id: 'rag',
+              label: `RAG 素材 (${assets.filter((a) => a.usage === 'rag').length})`,
+            },
+            {
+              id: 'unbound',
+              label: `未绑定 Doc (${assets.filter((a) => a.boundDocIds.length === 0).length})`,
+            },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -217,7 +226,7 @@ export const AssetHubView: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content + Optional Detail Drawer */}
+      {/* Main Content + Detail Drawer */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-start">
         <div className={inspectAsset ? 'xl:col-span-8' : 'xl:col-span-12'}>
           {viewMode === 'grid' ? (
@@ -230,9 +239,9 @@ export const AssetHubView: React.FC = () => {
                     key={asset.id}
                     interactive
                     padding="sm"
-                    onClick={() => setInspectAsset(asset)}
+                    onClick={() => setSelectedAssetId(asset.id)}
                     className={`flex flex-col gap-3 ${
-                      isSelected ? 'ring-2 ring-[#D97757]/55 bg-white/85' : ''
+                      isSelected ? 'ring-2 ring-[#D97757]/60 bg-white/88' : ''
                     }`}
                   >
                     <div className="aspect-square rounded-xl overflow-hidden bg-[#F3EFE6] relative">
@@ -261,28 +270,22 @@ export const AssetHubView: React.FC = () => {
                         </span>
                       </div>
                       <div className="text-[11px] text-[#5F5C55] mt-0.5 truncate">
-                        {asset.category} · 关联 Doc {asset.boundDocIds.length} · 生图引用 {asset.genReferenceCount}
+                        {asset.category} · 关联 Doc {asset.boundDocIds.length} · 生图引用{' '}
+                        {asset.genReferenceCount}
                       </div>
                     </div>
 
                     <div
-                      className="flex items-center gap-2 pt-1 mt-auto"
+                      className="pt-1 mt-auto"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <button
                         type="button"
                         onClick={() => openCreateDocModal([asset.id])}
-                        className="flex-1 py-1.5 px-2.5 rounded-xl bg-[#D97757]/12 hover:bg-[#D97757] text-[#C66343] hover:text-white text-[11px] font-medium flex items-center justify-center gap-1 transition-colors"
+                        className="w-full py-1.5 px-2.5 rounded-xl bg-[#D97757]/12 hover:bg-[#D97757] text-[#C66343] hover:text-white text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors"
                       >
                         <FilePlus2 className="w-3.5 h-3.5" />
                         以此图新建 Doc
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setInspectAsset(asset)}
-                        className="py-1.5 px-2.5 rounded-xl bg-white/75 hover:bg-white text-[11px] font-medium text-[#5F5C55] border border-[#1C1B18]/8"
-                      >
-                        详情
                       </button>
                     </div>
                   </GlassCard>
@@ -296,7 +299,7 @@ export const AssetHubView: React.FC = () => {
                 return (
                   <div
                     key={asset.id}
-                    onClick={() => setInspectAsset(asset)}
+                    onClick={() => setSelectedAssetId(asset.id)}
                     className="p-3 flex flex-wrap items-center justify-between gap-3 hover:bg-white/55 rounded-xl cursor-pointer transition-colors"
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -315,7 +318,9 @@ export const AssetHubView: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${usageInfo.cls}`}>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${usageInfo.cls}`}
+                      >
                         {usageInfo.text}
                       </span>
                       <button
@@ -357,8 +362,9 @@ export const AssetHubView: React.FC = () => {
                   </div>
                   <button
                     type="button"
-                    onClick={() => setInspectAsset(null)}
+                    onClick={() => setSelectedAssetId(null)}
                     className="p-1.5 rounded-xl text-[#8C887F] hover:text-[#1C1B18] hover:bg-white/60"
+                    aria-label="关闭详情"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -375,7 +381,9 @@ export const AssetHubView: React.FC = () => {
                 <div className="p-3 rounded-2xl glass-inset text-[11px] space-y-1.5">
                   <div className="flex justify-between">
                     <span className="text-[#8C887F]">英文名</span>
-                    <span className="font-medium text-[#1C1B18]">{inspectAsset.nameEn}</span>
+                    <span className="font-medium text-[#1C1B18]">
+                      {inspectAsset.nameEn}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#8C887F]">规格</span>
@@ -401,17 +409,18 @@ export const AssetHubView: React.FC = () => {
                       <button
                         key={u}
                         type="button"
-                        onClick={() => {
-                          updateAssetUsage(inspectAsset.id, u);
-                          setInspectAsset({ ...inspectAsset, usage: u });
-                        }}
+                        onClick={() => updateAssetUsage(inspectAsset.id, u)}
                         className={`py-1.5 px-2 rounded-xl text-[11px] font-medium transition-colors ${
                           inspectAsset.usage === u
                             ? 'bg-[#1C1B18] text-white'
                             : 'bg-white/65 text-[#5F5C55] hover:bg-white'
                         }`}
                       >
-                        {u === 'both' ? '双管线共享' : u === 'imggen' ? '仅生图' : '仅 RAG'}
+                        {u === 'both'
+                          ? '双管线共享'
+                          : u === 'imggen'
+                            ? '仅生图'
+                            : '仅 RAG'}
                       </button>
                     ))}
                   </div>
@@ -432,16 +441,15 @@ export const AssetHubView: React.FC = () => {
                           <button
                             key={dId}
                             type="button"
-                            onClick={() => {
-                              setSelectedDocId(dId);
-                              setActiveTab('rag-match');
-                            }}
+                            onClick={() => inspectDocInRag(dId)}
                             className="p-2 rounded-xl bg-white/70 hover:bg-white text-left text-xs border border-white flex items-center justify-between"
                           >
                             <span className="truncate font-medium text-[#1C1B18]">
                               {doc?.title ?? dId}
                             </span>
-                            <span className="text-[10px] font-mono text-[#D97757]">跳转</span>
+                            <span className="text-[10px] font-mono text-[#D97757]">
+                              跳转
+                            </span>
                           </button>
                         );
                       })}
@@ -453,7 +461,8 @@ export const AssetHubView: React.FC = () => {
                 <div>
                   <div className="text-xs font-medium text-[#1C1B18] mb-1.5 flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-[#C07A28]" />
-                    生图产出引用样本 ({samples.filter((s) => s.sourceAssetId === inspectAsset.id).length})
+                    生图产出引用样本 (
+                    {samples.filter((s) => s.sourceAssetId === inspectAsset.id).length})
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {samples
@@ -462,7 +471,7 @@ export const AssetHubView: React.FC = () => {
                         <button
                           key={s.id}
                           type="button"
-                          onClick={() => setActiveTab('gen-audit')}
+                          onClick={() => inspectSampleInAudit(s.id)}
                           className="px-2 py-1 rounded-lg bg-white/75 text-[10.5px] font-mono text-[#1C1B18] hover:text-[#D97757] border border-white"
                         >
                           {s.id}

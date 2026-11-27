@@ -242,28 +242,34 @@ export const ApiConfigView: React.FC = () => {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#1C1B18]/8">
-              <div className="flex items-center gap-1">
-                {(['connected', 'degraded', 'disconnected'] as SignalStatus[]).map(
-                  (st) => (
-                    <button
-                      key={st}
-                      type="button"
-                      onClick={() => setPipelineStatus(p.id, st)}
-                      className={`px-2 py-1 rounded-lg text-[10.5px] font-medium transition-colors ${
-                        p.status === st
-                          ? 'bg-[#1C1B18] text-white'
-                          : 'bg-white/60 text-[#5F5C55] hover:bg-white'
-                      }`}
-                    >
-                      {st === 'connected' ? '接通' : st === 'degraded' ? '降级' : '断开'}
-                    </button>
-                  )
-                )}
-              </div>
+              {p.mode === 'mock' ? (
+                <div className="flex items-center gap-1">
+                  {(['connected', 'degraded', 'disconnected'] as SignalStatus[]).map(
+                    (st) => (
+                      <button
+                        key={st}
+                        type="button"
+                        onClick={() => setPipelineStatus(p.id, st)}
+                        className={`px-2 py-1 rounded-lg text-[10.5px] font-medium transition-colors ${
+                          p.status === st
+                            ? 'bg-[#1C1B18] text-white'
+                            : 'bg-white/60 text-[#5F5C55] hover:bg-white'
+                        }`}
+                      >
+                        {st === 'connected' ? '接通' : st === 'degraded' ? '降级' : '断开'}
+                      </button>
+                    )
+                  )}
+                </div>
+              ) : (
+                <span className="text-[11px] text-[#8C887F]">
+                  Live 模式下状态由真实探活驱动
+                </span>
+              )}
               <button
                 type="button"
                 onClick={() => handleProbe(p.id)}
-                className="px-3 py-1.5 rounded-xl bg-white/85 hover:bg-white text-xs font-medium text-[#1C1B18] border border-[#1C1B18]/10 flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl bg-white/85 hover:bg-white text-xs font-medium text-[#1C1B18] border border-[#1C1B18]/10 flex items-center gap-1.5 ml-auto"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 测试连通性

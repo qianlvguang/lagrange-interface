@@ -94,6 +94,13 @@ interface LagrangeContextValue {
   setSelectedDocId: (id: string) => void;
   selectedSampleId: string;
   setSelectedSampleId: (id: string) => void;
+  selectedAssetId: string | null;
+  setSelectedAssetId: (id: string | null) => void;
+
+  // Cross-view contextual navigation
+  inspectAssetInHub: (assetId: string) => void;
+  inspectSampleInAudit: (sampleId: string) => void;
+  inspectDocInRag: (docId: string) => void;
 
   createDocModalOpen: boolean;
   createDocPresetAssetIds: string[];
@@ -199,6 +206,7 @@ export const LagrangeProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [selectedSampleId, setSelectedSampleId] = useState<string>(
     initial.samples[0]?.id ?? ''
   );
+  const [selectedAssetId, setSelectedAssetId] = useState<string | null>(null);
 
   const [createDocModalOpen, setCreateDocModalOpen] = useState(false);
   const [createDocPresetAssetIds, setCreateDocPresetAssetIds] = useState<string[]>([]);
@@ -251,6 +259,21 @@ export const LagrangeProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const openCreateDocModal = useCallback((presetAssetIds: string[] = []) => {
     setCreateDocPresetAssetIds(presetAssetIds);
     setCreateDocModalOpen(true);
+  }, []);
+
+  const inspectAssetInHub = useCallback((assetId: string) => {
+    setSelectedAssetId(assetId);
+    setActiveTab('assets');
+  }, []);
+
+  const inspectSampleInAudit = useCallback((sampleId: string) => {
+    setSelectedSampleId(sampleId);
+    setActiveTab('gen-audit');
+  }, []);
+
+  const inspectDocInRag = useCallback((docId: string) => {
+    setSelectedDocId(docId);
+    setActiveTab('rag-match');
   }, []);
 
   const closeCreateDocModal = useCallback(() => {
@@ -744,6 +767,11 @@ export const LagrangeProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setSelectedDocId,
     selectedSampleId,
     setSelectedSampleId,
+    selectedAssetId,
+    setSelectedAssetId,
+    inspectAssetInHub,
+    inspectSampleInAudit,
+    inspectDocInRag,
     createDocModalOpen,
     createDocPresetAssetIds,
     openCreateDocModal,

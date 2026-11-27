@@ -40,7 +40,7 @@ const FlowLine: React.FC<FlowLineProps> = ({
         d={d}
         fill="none"
         stroke={stroke}
-        strokeOpacity={active ? 0.28 : 0.35}
+        strokeOpacity={active ? 0.25 : 0.32}
         strokeWidth={active ? 2.5 : 1.75}
         strokeDasharray={active ? undefined : '6 6'}
       />
@@ -138,11 +138,13 @@ export const PipelineTopology: React.FC = () => {
         </div>
 
         <div className="mt-3 pt-2.5 border-t border-[#1C1B18]/7 flex items-center justify-between">
-          <div>
-            <div className="text-sm font-semibold text-[#1C1B18]">{metricText}</div>
-            <div className="text-[11px] text-[#5F5C55]">{subText}</div>
+          <div className="min-w-0">
+            <div className="text-sm font-semibold text-[#1C1B18] truncate">
+              {metricText}
+            </div>
+            <div className="text-[11px] text-[#5F5C55] truncate">{subText}</div>
           </div>
-          <span className="w-7 h-7 rounded-full bg-white/70 group-hover:bg-[#D97757] group-hover:text-white text-[#5F5C55] flex items-center justify-center transition-colors">
+          <span className="w-7 h-7 rounded-full bg-white/75 group-hover:bg-[#D97757] group-hover:text-white text-[#5F5C55] flex items-center justify-center transition-colors shrink-0 ml-2">
             <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </div>
@@ -152,7 +154,7 @@ export const PipelineTopology: React.FC = () => {
 
   return (
     <div className="glass-panel rounded-3xl p-5 md:p-6 relative overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-5">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
         <div>
           <div className="flex items-center gap-2">
             <h2 className="font-serif text-lg md:text-xl font-semibold text-[#1C1B18]">
@@ -163,7 +165,7 @@ export const PipelineTopology: React.FC = () => {
             </span>
           </div>
           <p className="text-xs text-[#5F5C55] mt-0.5">
-            生图管线素材与 RAG 管线图素材均统一沉淀于图片资产管理管线；切换顶部信号灯可实时联动数据流光状态
+            生图素材与 RAG 图元统一沉淀于中心资产池；流光速率与颜色随信号灯实时联动
           </p>
         </div>
         <div className="flex items-center gap-3 text-[11px] text-[#5F5C55]">
@@ -180,10 +182,9 @@ export const PipelineTopology: React.FC = () => {
       </div>
 
       {/* Desktop / Tablet Interactive Topology */}
-      <div className="relative">
-        {/* Animated SVG Connection Layer on md+ */}
+      <div className="relative py-1">
         <svg
-          viewBox="0 0 900 290"
+          viewBox="0 0 900 300"
           className="hidden md:block absolute inset-0 w-full h-full pointer-events-none"
           preserveAspectRatio="none"
         >
@@ -198,71 +199,84 @@ export const PipelineTopology: React.FC = () => {
           </defs>
           {/* Asset Hub (Center Top) -> RAG (Left) */}
           <FlowLine
-            d="M 330 72 C 260 72, 240 82, 185 112"
+            d="M 325 66 C 255 66, 240 88, 185 118"
             status={combineStatus(assetPipe.status, ragPipe.status)}
             durationSec={2.4}
           />
-          {/* RAG -> Asset Hub (Create Doc / Feedback) */}
+          {/* RAG -> Asset Hub */}
           <FlowLine
-            d="M 185 138 C 245 162, 275 135, 330 98"
+            d="M 185 144 C 245 162, 275 128, 325 94"
             status={combineStatus(assetPipe.status, ragPipe.status)}
             durationSec={3.1}
             reverse
           />
           {/* Asset Hub (Center Top) -> ImageGen (Right) */}
           <FlowLine
-            d="M 570 72 C 640 72, 660 82, 715 112"
+            d="M 575 66 C 645 66, 660 88, 715 118"
             status={combineStatus(assetPipe.status, genPipe.status)}
             durationSec={2.3}
           />
-          {/* ImageGen -> Asset Hub (Derived / Audited Outputs) */}
+          {/* ImageGen -> Asset Hub */}
           <FlowLine
-            d="M 715 138 C 655 162, 625 135, 570 98"
+            d="M 715 144 C 655 162, 625 128, 575 94"
             status={combineStatus(assetPipe.status, genPipe.status)}
             durationSec={3.0}
             reverse
           />
           {/* RAG -> Model Cluster (Bottom Center) */}
           <FlowLine
-            d="M 185 190 C 230 236, 310 245, 345 245"
+            d="M 185 196 C 235 244, 305 250, 340 250"
             status={combineStatus(ragPipe.status, modelPipe.status)}
             durationSec={2.9}
           />
           {/* ImageGen -> Model Cluster (Bottom Center) */}
           <FlowLine
-            d="M 715 190 C 670 236, 590 245, 555 245"
+            d="M 715 196 C 665 244, 595 250, 560 250"
             status={combineStatus(genPipe.status, modelPipe.status)}
             durationSec={2.7}
           />
           {/* Asset Hub -> Model Cluster */}
           <FlowLine
-            d="M 450 132 L 450 202"
+            d="M 450 132 L 450 206"
             status={combineStatus(assetPipe.status, modelPipe.status)}
             durationSec={2.2}
           />
         </svg>
 
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-5 items-center">
+        {/* Subtle Relationship Capsule Labels (md+) */}
+        <div className="hidden md:block pointer-events-none">
+          <span className="absolute left-[24%] top-[24%] -translate-x-1/2 px-2 py-0.5 rounded-full bg-[#FFFDF8]/90 border border-[#1C1B18]/8 text-[10px] font-medium text-[#5F5C55] shadow-xs z-20">
+            图文绑定
+          </span>
+          <span className="absolute left-[76%] top-[24%] -translate-x-1/2 px-2 py-0.5 rounded-full bg-[#FFFDF8]/90 border border-[#1C1B18]/8 text-[10px] font-medium text-[#5F5C55] shadow-xs z-20">
+            素材供给 · 产出审计
+          </span>
+          <span className="absolute left-1/2 top-[51%] -translate-x-1/2 -translate-y-1/2 px-2 py-0.5 rounded-full bg-[#FFFDF8]/90 border border-[#1C1B18]/8 text-[10px] font-medium text-[#5F5C55] shadow-xs z-20">
+            推理算力
+          </span>
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
           {/* Left: RAG Pipeline */}
-          <div className="md:mt-10">
+          <div className="md:col-span-4 md:mt-10">
             {renderNode(
               'rag',
               'rag-match',
               <FileSearch className="w-4.5 h-4.5 text-[#2F855A]" />,
               `${ragMatched} / ${docs.length} Docs 已配图`,
-              '点击进入 RAG 资产匹配与新建',
+              '进入 RAG 资产匹配与建档',
               'bg-[#2F855A]/12'
             )}
           </div>
 
           {/* Center Column: Asset Hub (Top) + Model Cluster (Bottom) */}
-          <div className="flex flex-col gap-8">
+          <div className="md:col-span-4 flex flex-col gap-10">
             {renderNode(
               'asset',
               'assets',
               <ImageIcon className="w-4.5 h-4.5 text-[#D97757]" />,
               `${assets.length} 张核心统一资产`,
-              '生图素材 & RAG 素材统一存储池',
+              '生图素材 & RAG 图元共享池',
               'bg-[#D97757]/14'
             )}
             {renderNode(
@@ -270,19 +284,19 @@ export const PipelineTopology: React.FC = () => {
               'models',
               <Cpu className="w-4.5 h-4.5 text-[#5F5C55]" />,
               `${runningModels} / ${models.length} 模型运行中`,
-              'VLM 审计 · Embedding · 渲染模型',
+              'VLM 审计 · Embedding · 渲染',
               'bg-[#1C1B18]/8'
             )}
           </div>
 
           {/* Right: ImageGen Pipeline */}
-          <div className="md:mt-10">
+          <div className="md:col-span-4 md:mt-10">
             {renderNode(
               'imggen',
               'gen-audit',
               <Sparkles className="w-4.5 h-4.5 text-[#C07A28]" />,
               `${genApproved} / ${samples.length} 产出已审计`,
-              '点击进入 BBox 质量审计工作台',
+              '进入 BBox 质量审计工作台',
               'bg-[#C07A28]/14'
             )}
           </div>

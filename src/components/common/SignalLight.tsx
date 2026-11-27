@@ -75,7 +75,7 @@ export const SignalLight: React.FC<SignalLightProps> = ({
         />
       </span>
       {(showText || label) && (
-        <span className={`text-xs font-medium tracking-tight ${cfg.textColor}`}>
+        <span className={`text-xs font-medium tracking-tight whitespace-nowrap shrink-0 ${cfg.textColor}`}>
           {label ?? cfg.text}
         </span>
       )}

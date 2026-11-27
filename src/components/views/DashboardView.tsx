@@ -5,11 +5,10 @@ import {
   ArrowUpRight,
   CheckCircle2,
   Cpu,
-  FilePlus2,
   FileSearch,
   Image as ImageIcon,
+  ListChecks,
   RefreshCw,
-  ShieldCheck,
 } from 'lucide-react';
 import { useLagrange } from '../../context/LagrangeContext';
 import { AnimatedNumber } from '../common/AnimatedNumber';
@@ -17,8 +16,22 @@ import { GlassCard } from '../common/GlassCard';
 import { SignalLight } from '../common/SignalLight';
 import { PipelineTopology } from './PipelineTopology';
 
+function buildSmoothCurve(pts: { x: number; y: number }[]): string {
+  if (pts.length === 0) return '';
+  if (pts.length === 1) return `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+  let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i];
+    const p1 = pts[i + 1];
+    const cx = ((p0.x + p1.x) / 2).toFixed(1);
+    d += ` C ${cx} ${p0.y.toFixed(1)}, ${cx} ${p1.y.toFixed(1)}, ${p1.x.toFixed(1)} ${p1.y.toFixed(1)}`;
+  }
+  return d;
+}
+
 export const DashboardView: React.FC = () => {
   const {
+    pipelines,
     assets,
     docs,
     samples,
@@ -26,7 +39,8 @@ export const DashboardView: React.FC = () => {
     events,
     throughput,
     setActiveTab,
-    openCreateDocModal,
+    inspectDocInRag,
+    inspectSampleInAudit,
     pingModel,
   } = useLagrange();
 
@@ -37,32 +51,36 @@ export const DashboardView: React.FC = () => {
   const ragOnlyAssets = assets.filter((a) => a.usage === 'rag').length;
 
   const matchedDocs = docs.filter((d) => d.matchStatus === 'matched').length;
-  const pendingDocs = docs.filter((d) => d.matchStatus !== 'matched').length;
+  const pendingDocList = docs.filter((d) => d.matchStatus !== 'matched');
   const docCoverage = docs.length ? Math.round((matchedDocs / docs.length) * 100) : 0;
 
   const approvedSamples = samples.filter((s) => s.status === 'approved').length;
-  const pendingSamples = samples.filter((s) => s.status === 'pending').length;
+  const pendingSampleList = samples.filter((s) => s.status === 'pending');
   const passRate = samples.length
-    ? Math.round((approvedSamples / Math.max(1, samples.length - pendingSamples)) * 100)
+    ? Math.round(
+        (approvedSamples / Math.max(1, samples.length - pendingSampleList.length)) * 100
+      )
     : 0;
 
+  const onlinePipelines = pipelines.filter((p) => p.status === 'connected').length;
   const runningModels = models.filter((m) => m.status === 'running').length;
   const totalVramUsed = models.reduce((acc, m) => acc + m.vramUsedGb, 0);
   const totalVramCap = models.reduce((acc, m) => acc + m.vramTotalGb, 0);
 
-  // Build smooth SVG polyline for throughput chart
+  // Smooth SVG cubic bezier chart
   const maxVal = Math.max(...throughput.map((t) => t.genCount), 700);
-  const chartW = 540;
-  const chartH = 165;
-  const padX = 28;
-  const padY = 18;
+  const chartW = 560;
+  const chartH = 176;
+  const padLeft = 38;
+  const padRight = 22;
+  const padY = 20;
 
   const toPoints = (key: 'genCount' | 'auditCount' | 'matchCount') =>
     throughput.map((pt, idx) => {
       const x =
-        padX + (idx / Math.max(1, throughput.length - 1)) * (chartW - padX * 2);
-      const y =
-        chartH - padY - (pt[key] / maxVal) * (chartH - padY * 2);
+        padLeft +
+        (idx / Math.max(1, throughput.length - 1)) * (chartW - padLeft - padRight);
+      const y = chartH - padY - (pt[key] / maxVal) * (chartH - padY * 2);
       return { x, y, pt };
     });
 
@@ -70,13 +88,8 @@ export const DashboardView: React.FC = () => {
   const auditPts = toPoints('auditCount');
   const matchPts = toPoints('matchCount');
 
-  const pathFrom = (pts: { x: number; y: number }[]) =>
-    pts
-      .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
-      .join(' ');
-
-  const areaFrom = (pts: { x: number; y: number }[]) =>
-    `${pathFrom(pts)} L ${pts[pts.length - 1].x.toFixed(1)} ${chartH - padY} L ${pts[0].x.toFixed(1)} ${chartH - padY} Z`;
+  const genPath = buildSmoothCurve(genPts);
+  const genArea = `${genPath} L ${genPts[genPts.length - 1].x.toFixed(1)} ${chartH - padY} L ${genPts[0].x.toFixed(1)} ${chartH - padY} Z`;
 
   return (
     <motion.div
@@ -85,7 +98,7 @@ export const DashboardView: React.FC = () => {
       transition={{ duration: 0.28 }}
       className="flex flex-col gap-5"
     >
-      {/* Hero Header */}
+      {/* Hero Header — Clean Typography + Real-time Status Pill */}
       <div className="flex flex-wrap items-end justify-between gap-4 px-1">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-[11px] font-medium text-[#5F5C55] mb-2">
@@ -100,23 +113,16 @@ export const DashboardView: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            type="button"
-            onClick={() => setActiveTab('rag-match')}
-            className="glass-pill px-3.5 py-2 rounded-xl text-xs font-medium text-[#1C1B18] hover:bg-white/95 flex items-center gap-1.5 transition-all"
-          >
-            <FileSearch className="w-3.5 h-3.5 text-[#2F855A]" />
-            处理待配图 Doc ({pendingDocs})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('gen-audit')}
-            className="glass-pill px-3.5 py-2 rounded-xl text-xs font-medium text-[#1C1B18] hover:bg-white/95 flex items-center gap-1.5 transition-all"
-          >
-            <ShieldCheck className="w-3.5 h-3.5 text-[#D97757]" />
-            进入生图审计 ({pendingSamples} 待审)
-          </button>
+        <div className="glass-pill px-4 py-2 rounded-2xl flex items-center gap-3 text-xs text-[#5F5C55]">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#2F855A]" />
+            <strong className="font-mono text-[#1C1B18]">{onlinePipelines}/{pipelines.length}</strong> 管线已接入
+          </span>
+          <span className="text-[#1C1B18]/15">|</span>
+          <span className="flex items-center gap-1.5">
+            <Cpu className="w-3.5 h-3.5 text-[#D97757]" />
+            <strong className="font-mono text-[#1C1B18]">{runningModels}/{models.length}</strong> 模型在线
+          </span>
         </div>
       </div>
 
@@ -174,7 +180,9 @@ export const DashboardView: React.FC = () => {
               />
             </div>
             <div className="text-[11px] text-[#5F5C55] mt-1.5">
-              {pendingDocs > 0 ? `仍有 ${pendingDocs} 个 Doc 待确认或绑定图片` : '全部 Doc 已完成标准图绑定'}
+              {pendingDocList.length > 0
+                ? `仍有 ${pendingDocList.length} 个 Doc 待确认或绑定图片`
+                : '全部 Doc 已完成标准图绑定'}
             </div>
           </div>
         </GlassCard>
@@ -193,7 +201,7 @@ export const DashboardView: React.FC = () => {
               className="font-serif text-3xl font-semibold text-[#1C1B18]"
             />
             <span className="text-xs text-[#8C887F]">
-              待审 {pendingSamples} 条
+              待审 {pendingSampleList.length} 条
             </span>
           </div>
           <div className="mt-3 flex items-center justify-between text-[11px] text-[#5F5C55]">
@@ -238,9 +246,8 @@ export const DashboardView: React.FC = () => {
       {/* Topology Canvas */}
       <PipelineTopology />
 
-      {/* Bottom Split: Throughput & Events | Live Models & Quick Create */}
+      {/* Bottom Split: Smooth Chart + Events | Live Models + Priority Tasks */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
-        {/* Left 7 cols: Chart + Event Stream */}
         <div className="xl:col-span-7 flex flex-col gap-5">
           <GlassCard padding="lg">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
@@ -269,42 +276,67 @@ export const DashboardView: React.FC = () => {
               <svg viewBox={`0 0 ${chartW} ${chartH}`} className="w-full h-44 overflow-visible">
                 <defs>
                   <linearGradient id="genAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#D97757" stopOpacity="0.24" />
+                    <stop offset="0%" stopColor="#D97757" stopOpacity="0.22" />
                     <stop offset="100%" stopColor="#D97757" stopOpacity="0.01" />
                   </linearGradient>
                 </defs>
                 {[0.25, 0.5, 0.75, 1].map((ratio) => {
                   const y = chartH - padY - ratio * (chartH - padY * 2);
+                  const val = Math.round(maxVal * ratio);
                   return (
-                    <line
-                      key={ratio}
-                      x1={padX}
-                      y1={y}
-                      x2={chartW - padX}
-                      y2={y}
-                      stroke="#1C1B18"
-                      strokeOpacity="0.07"
-                      strokeDasharray="4 4"
-                    />
+                    <g key={ratio}>
+                      <line
+                        x1={padLeft}
+                        y1={y}
+                        x2={chartW - padRight}
+                        y2={y}
+                        stroke="#1C1B18"
+                        strokeOpacity="0.07"
+                        strokeDasharray="4 4"
+                      />
+                      <text
+                        x={padLeft - 6}
+                        y={y + 3}
+                        textAnchor="end"
+                        fontSize="9.5"
+                        fontFamily="JetBrains Mono, monospace"
+                        fill="#8C887F"
+                      >
+                        {val}
+                      </text>
+                    </g>
                   );
                 })}
-                <path d={areaFrom(genPts)} fill="url(#genAreaGrad)" />
+
+                {hoveredIdx !== null && genPts[hoveredIdx] && (
+                  <line
+                    x1={genPts[hoveredIdx].x}
+                    y1={padY}
+                    x2={genPts[hoveredIdx].x}
+                    y2={chartH - padY}
+                    stroke="#D97757"
+                    strokeOpacity="0.35"
+                    strokeDasharray="3 3"
+                  />
+                )}
+
+                <path d={genArea} fill="url(#genAreaGrad)" />
                 <path
-                  d={pathFrom(genPts)}
+                  d={genPath}
                   fill="none"
                   stroke="#D97757"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                 />
                 <path
-                  d={pathFrom(auditPts)}
+                  d={buildSmoothCurve(auditPts)}
                   fill="none"
                   stroke="#2F855A"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
                 <path
-                  d={pathFrom(matchPts)}
+                  d={buildSmoothCurve(matchPts)}
                   fill="none"
                   stroke="#7A6B5D"
                   strokeWidth="2"
@@ -332,13 +364,11 @@ export const DashboardView: React.FC = () => {
                       stroke="#D97757"
                       strokeWidth="2.5"
                       className="cursor-pointer transition-all"
-                      onMouseEnter={() => setHoveredIdx(idx)}
-                      onMouseLeave={() => setHoveredIdx(null)}
                     />
                     <rect
-                      x={g.x - 24}
+                      x={g.x - 28}
                       y={0}
-                      width={48}
+                      width={56}
                       height={chartH}
                       fill="transparent"
                       className="cursor-pointer"
@@ -416,7 +446,7 @@ export const DashboardView: React.FC = () => {
           </GlassCard>
         </div>
 
-        {/* Right 5 cols: Model Runtime Quick Panel + Action Shortcuts */}
+        {/* Right 5 cols: Model Runtime Quick Panel + Action Required Priority Queue */}
         <div className="xl:col-span-5 flex flex-col gap-5">
           <GlassCard padding="lg">
             <div className="flex items-center justify-between mb-3">
@@ -475,30 +505,75 @@ export const DashboardView: React.FC = () => {
             </div>
           </GlassCard>
 
-          <GlassCard padding="lg" className="bg-gradient-to-br from-[#FFFDF8]/75 to-[#F5E8DF]/65">
-            <h3 className="font-serif text-lg font-semibold text-[#1C1B18]">
-              高频联动操作
-            </h3>
-            <p className="text-xs text-[#5F5C55] mt-1 leading-relaxed">
-              当资产库新增标准参考图时，可直接建档为 RAG Doc，或推送给生图管线作为合成参考锚点。
-            </p>
-            <div className="mt-4 flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={() => openCreateDocModal(['ast_010'])}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#D97757] hover:bg-[#C66343] text-white text-xs font-medium shadow-[0_6px_16px_rgba(217,119,87,0.26)] flex items-center justify-center gap-2 transition-all"
-              >
-                <FilePlus2 className="w-4 h-4" />
-                从图片快速创建新 RAG Doc
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab('api-config')}
-                className="w-full py-2.5 px-4 rounded-xl bg-white/75 hover:bg-white text-[#1C1B18] text-xs font-medium border border-[#1C1B18]/10 transition-all"
-              >
-                查看三条管线全量接口对接方案
-              </button>
+          <GlassCard padding="lg" className="bg-gradient-to-br from-[#FFFDF8]/78 to-[#F5ECE4]/62">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <ListChecks className="w-4 h-4 text-[#D97757]" />
+                <h3 className="font-serif text-lg font-semibold text-[#1C1B18]">
+                  待办优先队列
+                </h3>
+              </div>
+              <span className="text-[11px] font-mono text-[#8C887F]">
+                Action Required
+              </span>
             </div>
+
+            {pendingDocList.length === 0 && pendingSampleList.length === 0 ? (
+              <div className="p-4 rounded-2xl bg-white/60 text-xs text-[#246A47] text-center">
+                当前所有 RAG Doc 配图与生图审计均已完成！
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {pendingDocList.slice(0, 3).map((doc) => (
+                  <button
+                    key={doc.id}
+                    type="button"
+                    onClick={() => inspectDocInRag(doc.id)}
+                    className="p-2.5 rounded-2xl bg-white/68 hover:bg-white border border-white text-left flex items-center justify-between gap-2 transition-all group"
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="px-1.5 py-0.5 rounded-md bg-[#2F855A]/12 text-[#246A47] text-[10px] font-medium shrink-0">
+                          RAG 配图
+                        </span>
+                        <span className="text-xs font-medium text-[#1C1B18] truncate">
+                          {doc.title}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-medium text-[#D97757] group-hover:translate-x-0.5 transition-transform shrink-0 flex items-center gap-0.5">
+                      去匹配 <ArrowUpRight className="w-3 h-3" />
+                    </span>
+                  </button>
+                ))}
+
+                {pendingSampleList.slice(0, 2).map((sample) => (
+                  <button
+                    key={sample.id}
+                    type="button"
+                    onClick={() => inspectSampleInAudit(sample.id)}
+                    className="p-2.5 rounded-2xl bg-white/68 hover:bg-white border border-white text-left flex items-center justify-between gap-2 transition-all group"
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="px-1.5 py-0.5 rounded-md bg-[#C07A28]/14 text-[#9C611B] text-[10px] font-medium shrink-0">
+                          生图审计
+                        </span>
+                        <span className="text-xs font-mono font-medium text-[#1C1B18] truncate">
+                          {sample.id}
+                        </span>
+                        <span className="text-[11px] text-[#8C887F] truncate">
+                          Align {sample.metrics.bboxAlign}%
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-medium text-[#D97757] group-hover:translate-x-0.5 transition-transform shrink-0 flex items-center gap-0.5">
+                      去审计 <ArrowUpRight className="w-3 h-3" />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
           </GlassCard>
         </div>
       </div>

@@ -189,28 +189,34 @@ export const ModelMonitorView: React.FC = () => {
                 {renderSparkline(m.latencyHistory, stroke)}
               </div>
 
-              {/* Simulation Status Controls */}
-              <div className="pt-2 border-t border-[#1C1B18]/8 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-[#8C887F]">运行态模拟</span>
-                <div className="flex items-center gap-1">
-                  {(['running', 'degraded', 'offline'] as ModelRuntimeStatus[]).map(
-                    (st) => (
-                      <button
-                        key={st}
-                        type="button"
-                        onClick={() => setModelStatus(m.id, st)}
-                        className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-colors ${
-                          m.status === st
-                            ? 'bg-[#1C1B18] text-white'
-                            : 'bg-white/60 text-[#5F5C55] hover:bg-white'
-                        }`}
-                      >
-                        {st === 'running' ? '运行' : st === 'degraded' ? '降级' : '停止'}
-                      </button>
-                    )
-                  )}
+              {/* Simulation Status Controls (only shown in mock mode) */}
+              {modelPipeline.mode === 'mock' ? (
+                <div className="pt-2 border-t border-[#1C1B18]/8 flex items-center justify-between gap-2">
+                  <span className="text-[11px] text-[#8C887F]">Mock 运行态模拟</span>
+                  <div className="flex items-center gap-1">
+                    {(['running', 'degraded', 'offline'] as ModelRuntimeStatus[]).map(
+                      (st) => (
+                        <button
+                          key={st}
+                          type="button"
+                          onClick={() => setModelStatus(m.id, st)}
+                          className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-colors ${
+                            m.status === st
+                              ? 'bg-[#1C1B18] text-white'
+                              : 'bg-white/60 text-[#5F5C55] hover:bg-white'
+                          }`}
+                        >
+                          {st === 'running' ? '运行' : st === 'degraded' ? '降级' : '停止'}
+                        </button>
+                      )
+                    )}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="pt-2 border-t border-[#1C1B18]/8 text-[11px] text-[#8C887F]">
+                  LIVE 模式 · 由远端集群心跳实时同步
+                </div>
+              )}
             </GlassCard>
           );
         })}

@@ -426,22 +426,20 @@ export const RagMatchView: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5 mt-auto pt-1">
+                      <div className="pt-1 mt-auto">
                         <button
                           type="button"
-                          onClick={() => bindAssetToDoc(currentDoc.id, asset.id, boundAssets.length === 0)}
-                          className="flex-1 py-1.5 px-2.5 rounded-xl bg-[#D97757] hover:bg-[#C66343] text-white text-[11px] font-medium flex items-center justify-center gap-1 transition-colors"
+                          onClick={() =>
+                            bindAssetToDoc(
+                              currentDoc.id,
+                              asset.id,
+                              boundAssets.length === 0
+                            )
+                          }
+                          className="w-full py-1.5 px-2.5 rounded-xl bg-[#D97757] hover:bg-[#C66343] text-white text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors shadow-xs"
                         >
                           <Link2 className="w-3 h-3" />
-                          绑定此资产
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => openCreateDocModal([asset.id])}
-                          title="以此图片另建新 Doc"
-                          className="py-1.5 px-2.5 rounded-xl bg-white/80 hover:bg-white text-[11px] font-medium text-[#5F5C55] border border-[#1C1B18]/10 transition-colors"
-                        >
-                          建新 Doc
+                          {boundAssets.length === 0 ? '设为首图并绑定' : '绑定到当前 Doc'}
                         </button>
                       </div>
                     </motion.div>

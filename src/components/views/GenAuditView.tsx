@@ -32,7 +32,7 @@ export const GenAuditView: React.FC = () => {
     selectedSampleId,
     setSelectedSampleId,
     submitAuditVerdict,
-    setActiveTab,
+    inspectAssetInHub,
   } = useLagrange();
 
   const [statusFilter, setStatusFilter] = useState<'all' | AuditStatus>('all');
@@ -124,7 +124,7 @@ export const GenAuditView: React.FC = () => {
     };
     const item = map[status];
     return (
-      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${item.cls}`}>
+      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium whitespace-nowrap shrink-0 ${item.cls}`}>
         {item.label}
       </span>
     );
@@ -162,7 +162,13 @@ export const GenAuditView: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           <div className="glass-pill px-3 py-1.5 rounded-xl flex items-center gap-2 text-[11px] text-[#5F5C55]">
             <Keyboard className="w-3.5 h-3.5 text-[#D97757]" />
-            <span>快捷键：A 通过 · R 驳回 · F 复核 · B 开关框线 · ↑↓ 切换</span>
+            <span className="flex flex-wrap items-center gap-1.5">
+              <kbd className="px-1.5 py-0.5 rounded bg-white/80 border border-[#1C1B18]/10 font-mono text-[10px]">A</kbd> 通过
+              <kbd className="px-1.5 py-0.5 rounded bg-white/80 border border-[#1C1B18]/10 font-mono text-[10px]">R</kbd> 驳回
+              <kbd className="px-1.5 py-0.5 rounded bg-white/80 border border-[#1C1B18]/10 font-mono text-[10px]">F</kbd> 复核
+              <kbd className="px-1.5 py-0.5 rounded bg-white/80 border border-[#1C1B18]/10 font-mono text-[10px]">B</kbd> 框线
+              <kbd className="px-1.5 py-0.5 rounded bg-white/80 border border-[#1C1B18]/10 font-mono text-[10px]">↑↓</kbd> 切图
+            </span>
           </div>
         </div>
       </div>
@@ -202,8 +208,13 @@ export const GenAuditView: React.FC = () => {
 
       {/* 3-Column Audit Workbench */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-        {/* Queue (3 cols) */}
-        <GlassCard padding="sm" className="lg:col-span-3 flex flex-col gap-2 max-h-[640px] overflow-y-auto">
+        {/* Queue (shrinks when compareMode is active to give dual images breathing room) */}
+        <GlassCard
+          padding="sm"
+          className={`${
+            compareMode ? 'lg:col-span-2' : 'lg:col-span-3'
+          } flex flex-col gap-2 max-h-[640px] overflow-y-auto`}
+        >
           {filteredSamples.map((s) => {
             const active = currentSample?.id === s.id;
             return (
@@ -220,18 +231,20 @@ export const GenAuditView: React.FC = () => {
                 <img
                   src={s.imageUrl}
                   alt={s.id}
-                  className="w-12 h-12 rounded-xl object-cover shrink-0 bg-[#EFEAE0]"
+                  className={`${compareMode ? 'w-9 h-9' : 'w-12 h-12'} rounded-xl object-cover shrink-0 bg-[#EFEAE0]`}
                 />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-[11.5px] font-mono font-semibold text-[#1C1B18] truncate">
-                      {s.id}
+                    <span className="text-[11px] font-mono font-semibold text-[#1C1B18] truncate">
+                      {compareMode ? s.id.replace('DW_V2_', '#') : s.id}
                     </span>
                     {statusPill(s.status)}
                   </div>
-                  <div className="text-[10.5px] text-[#8C887F] truncate mt-0.5">
-                    {s.stage}
-                  </div>
+                  {!compareMode && (
+                    <div className="text-[10.5px] text-[#8C887F] truncate mt-0.5">
+                      {s.stage}
+                    </div>
+                  )}
                   <div className="text-[10px] font-mono text-[#5F5C55] mt-0.5">
                     Align {s.metrics.bboxAlign}%
                   </div>
@@ -241,9 +254,14 @@ export const GenAuditView: React.FC = () => {
           })}
         </GlassCard>
 
-        {/* Center Inspector Canvas (5 cols) */}
+        {/* Center Inspector Canvas */}
         {currentSample && (
-          <GlassCard padding="md" className="lg:col-span-5 flex flex-col gap-3">
+          <GlassCard
+            padding="md"
+            className={`${
+              compareMode ? 'lg:col-span-6' : 'lg:col-span-5'
+            } flex flex-col gap-3`}
+          >
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <span className="font-mono text-xs font-semibold text-[#1C1B18]">
@@ -312,6 +330,7 @@ export const GenAuditView: React.FC = () => {
                   >
                     {(() => {
                       const [ymin, xmin, ymax, xmax] = currentSample.bbox;
+                      const labelX = Math.min(xmin, 680);
                       return (
                         <g>
                           <rect
@@ -326,7 +345,7 @@ export const GenAuditView: React.FC = () => {
                             rx="10"
                           />
                           <rect
-                            x={xmin}
+                            x={labelX}
                             y={Math.max(12, ymin - 48)}
                             width="290"
                             height="40"
@@ -335,7 +354,7 @@ export const GenAuditView: React.FC = () => {
                             fillOpacity="0.86"
                           />
                           <text
-                            x={xmin + 14}
+                            x={labelX + 14}
                             y={Math.max(38, ymin - 22)}
                             fill="#FFFDF8"
                             fontSize="24"
@@ -480,7 +499,7 @@ export const GenAuditView: React.FC = () => {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setActiveTab('assets')}
+                  onClick={() => inspectAssetInHub(sourceAsset.id)}
                   className="text-[11px] font-medium text-[#D97757] hover:underline shrink-0"
                 >
                   查看资产

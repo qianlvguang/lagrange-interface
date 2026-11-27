@@ -32,16 +32,24 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 export const Sidebar: React.FC = () => {
-  const { activeTab, setActiveTab, pipelines, docs, samples } = useLagrange();
+  const { activeTab, setActiveTab, pipelines, docs, samples, models } = useLagrange();
   const [collapsed, setCollapsed] = useState(false);
 
   const unmatchedCount = docs.filter((d) => d.matchStatus !== 'matched').length;
   const pendingAuditCount = samples.filter((s) => s.status === 'pending').length;
+  const onlinePipelines = pipelines.filter((p) => p.status === 'connected').length;
+  const runningModels = models.filter((m) => m.status === 'running').length;
+
+  const overallSignal = pipelines.some((p) => p.status === 'disconnected')
+    ? 'disconnected'
+    : pipelines.some((p) => p.status === 'degraded' || p.status === 'syncing')
+      ? 'degraded'
+      : 'connected';
 
   return (
     <aside
       className={`hidden lg:flex flex-col shrink-0 transition-all duration-300 ease-out ${
-        collapsed ? 'w-[78px]' : 'w-[244px]'
+        collapsed ? 'w-[78px]' : 'w-[240px]'
       }`}
     >
       <div className="glass-panel rounded-3xl p-3 flex flex-col h-[calc(100vh-2rem)] sticky top-4">
@@ -103,14 +111,12 @@ export const Sidebar: React.FC = () => {
                   <motion.div
                     layoutId="lagrange-nav-pill"
                     transition={{ type: 'spring', stiffness: 360, damping: 30 }}
-                    className="absolute inset-0 rounded-2xl bg-white/85 border border-white shadow-[0_4px_14px_rgba(45,36,26,0.06)]"
+                    className="absolute inset-0 rounded-2xl bg-white/88 border border-white shadow-[0_4px_14px_rgba(45,36,26,0.06)]"
                   />
                 )}
                 <span
                   className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-xl shrink-0 transition-colors ${
-                    active
-                      ? 'bg-[#D97757]/12 text-[#D97757]'
-                      : 'text-[#5F5C55]'
+                    active ? 'bg-[#D97757]/12 text-[#D97757]' : 'text-[#5F5C55]'
                   }`}
                 >
                   <Icon className="w-[18px] h-[18px]" />
@@ -137,41 +143,34 @@ export const Sidebar: React.FC = () => {
           })}
         </nav>
 
-        {/* Bottom Mini Pipeline Signal Strip */}
+        {/* Minimal System Runtime Summary */}
         <div className="mt-3 pt-3 border-t border-[#1C1B18]/8">
-          {!collapsed && (
-            <div className="px-2 mb-2 flex items-center justify-between text-[11px] text-[#8C887F]">
-              <span>管线信号灯</span>
-              <span className="font-mono">4 Endpoints</span>
-            </div>
-          )}
-          <div className="flex flex-col gap-1.5">
-            {pipelines.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => setActiveTab('api-config')}
-                title={`${p.name} (${p.status})`}
-                className={`flex items-center ${
-                  collapsed ? 'justify-center px-1.5' : 'justify-between px-2.5'
-                } py-1.5 rounded-xl bg-white/45 hover:bg-white/75 transition-colors`}
-              >
-                <div className="flex items-center gap-2 min-w-0">
-                  <SignalLight status={p.status} size="sm" />
-                  {!collapsed && (
-                    <span className="text-xs font-medium text-[#1C1B18] truncate">
-                      {p.shortName}
-                    </span>
-                  )}
-                </div>
-                {!collapsed && (
-                  <span className="text-[10px] font-mono text-[#8C887F]">
-                    {p.latencyMs !== null ? `${p.latencyMs}ms` : 'OFF'}
+          <button
+            type="button"
+            onClick={() => setActiveTab('api-config')}
+            title="点击前往管线接入配置"
+            className={`w-full rounded-2xl bg-white/50 hover:bg-white/80 border border-white/80 transition-colors text-left ${
+              collapsed ? 'p-2.5 flex justify-center' : 'px-3 py-2.5'
+            }`}
+          >
+            {collapsed ? (
+              <SignalLight status={overallSignal} size="md" />
+            ) : (
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-medium text-[#5F5C55]">
+                    系统运行摘要
                   </span>
-                )}
-              </button>
-            ))}
-          </div>
+                  <SignalLight status={overallSignal} size="sm" />
+                </div>
+                <div className="flex items-center justify-between text-[11px] font-mono text-[#1C1B18]">
+                  <span>{onlinePipelines}/{pipelines.length} 管线在线</span>
+                  <span className="text-[#8C887F]">·</span>
+                  <span>{runningModels}/{models.length} 模型</span>
+                </div>
+              </div>
+            )}
+          </button>
         </div>
       </div>
     </aside>
