@@ -4,6 +4,7 @@ import {
   CheckCircle2,
   FilePlus2,
   FileSearch,
+  FolderTree,
   Link2,
   Search,
   Sparkles,
@@ -14,6 +15,7 @@ import { useLagrange } from '../../context/LagrangeContext';
 import type { ImageAsset, RagDoc } from '../../types/lagrange';
 import { GlassCard } from '../common/GlassCard';
 import { SignalLight } from '../common/SignalLight';
+import { RagTreeExplorer } from './RagTreeExplorer';
 
 function computeMatchScore(doc: RagDoc, asset: ImageAsset): number {
   let score = 28;
@@ -47,6 +49,7 @@ export const RagMatchView: React.FC = () => {
   const [docSearch, setDocSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'matched' | 'pending' | 'unmatched'>('all');
   const [assetSearch, setAssetSearch] = useState('');
+  const [subMode, setSubMode] = useState<'workbench' | 'tree'>('workbench');
 
   const ragPipeline = pipelines.find((p) => p.id === 'rag')!;
 
@@ -139,17 +142,48 @@ export const RagMatchView: React.FC = () => {
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={() => openCreateDocModal([])}
-          className="px-4 py-2 rounded-xl text-xs font-medium bg-[#D97757] hover:bg-[#C66343] text-white shadow-[0_6px_16px_rgba(217,119,87,0.28)] flex items-center gap-1.5 transition-all"
-        >
-          <FilePlus2 className="w-4 h-4" />
-          根据图片新建 Doc
-        </button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <div className="glass-pill p-1 rounded-xl flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => setSubMode('workbench')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors ${
+                subMode === 'workbench'
+                  ? 'bg-[#1C1B18] text-white'
+                  : 'text-[#5F5C55] hover:text-[#1C1B18]'
+              }`}
+            >
+              <FileSearch className="w-3.5 h-3.5" />
+              资产匹配工作台
+            </button>
+            <button
+              type="button"
+              onClick={() => setSubMode('tree')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors ${
+                subMode === 'tree'
+                  ? 'bg-[#1C1B18] text-white'
+                  : 'text-[#5F5C55] hover:text-[#1C1B18]'
+              }`}
+            >
+              <FolderTree className="w-3.5 h-3.5" />
+              重构目录树 (7,983)
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => openCreateDocModal([])}
+            className="px-4 py-2 rounded-xl text-xs font-medium bg-[#D97757] hover:bg-[#C66343] text-white shadow-[0_6px_16px_rgba(217,119,87,0.28)] flex items-center gap-1.5 transition-all"
+          >
+            <FilePlus2 className="w-4 h-4" />
+            根据图片新建 Doc
+          </button>
+        </div>
       </div>
 
-      {/* Main Two-Column Workspace */}
+      {subMode === 'tree' ? (
+        <RagTreeExplorer />
+      ) : (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         {/* Left: Doc List */}
         <GlassCard padding="md" className="lg:col-span-4 flex flex-col gap-3">
@@ -450,6 +484,7 @@ export const RagMatchView: React.FC = () => {
           )}
         </div>
       </div>
+      )}
     </motion.div>
   );
 };

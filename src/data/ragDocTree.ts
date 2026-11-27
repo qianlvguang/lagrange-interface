@@ -1,0 +1,5967 @@
+export interface RagTreeSample {
+  docId: string;
+  title: string;
+  origin: 'kb' | 'logo' | 'sport' | 'tpl';
+  status: 'matched' | 'pending' | 'unmatched';
+  legacyFolder: string;
+  isAnomaly: boolean;
+}
+
+export interface RagTreeLegacySource {
+  folder: string;
+  count: number;
+}
+
+export interface RagTreeNode {
+  name: string;
+  path: string;
+  description?: string;
+  count: number;
+  matched: number;
+  pending: number;
+  unmatched: number;
+  anomalyCount: number;
+  origins: Record<string, number>;
+  legacyFolders: RagTreeLegacySource[];
+  samples: RagTreeSample[];
+  children: RagTreeNode[];
+}
+
+export interface RagTreeSummary {
+  totalDocs: number;
+  legacyFolderCount: number;
+  newLeafFolderCount: number;
+  rootDomainCount: number;
+  maxDepth: number;
+  duplicateTitleGroupCount: number;
+  anomalyDocCount: number;
+  statusCounts: { matched: number; pending: number; unmatched: number };
+  originCounts: Record<string, number>;
+}
+
+export const RAG_TREE_SUMMARY: RagTreeSummary = {
+  "totalDocs": 7983,
+  "legacyFolderCount": 103,
+  "newLeafFolderCount": 61,
+  "rootDomainCount": 7,
+  "maxDepth": 3,
+  "duplicateTitleGroupCount": 105,
+  "anomalyDocCount": 2,
+  "statusCounts": {
+    "unmatched": 2164,
+    "pending": 111,
+    "matched": 5708
+  },
+  "originCounts": {
+    "kb": 3377,
+    "logo": 4097,
+    "sport": 249,
+    "tpl": 260
+  }
+};
+
+export const RAG_REFACTORED_TREE: RagTreeNode[] = [
+  {
+    "name": "01 · 品牌与商标图鉴",
+    "path": "01 · 品牌与商标图鉴",
+    "count": 3779,
+    "matched": 3526,
+    "pending": 0,
+    "unmatched": 253,
+    "anomalyCount": 0,
+    "origins": {
+      "kb": 270,
+      "logo": 3509
+    },
+    "legacyFolders": [
+      {
+        "folder": "Logo库/brand_logos",
+        "count": 3509
+      },
+      {
+        "folder": "知识库/ov",
+        "count": 135
+      },
+      {
+        "folder": "知识库/ent_其他",
+        "count": 77
+      },
+      {
+        "folder": "知识库/brand_sec",
+        "count": 20
+      },
+      {
+        "folder": "知识库/ent_运动品牌",
+        "count": 14
+      },
+      {
+        "folder": "知识库/ent_奢侈品牌",
+        "count": 8
+      },
+      {
+        "folder": "知识库/ent_时尚品牌",
+        "count": 4
+      },
+      {
+        "folder": "知识库/ent_汽车",
+        "count": 3
+      },
+      {
+        "folder": "知识库/brand",
+        "count": 2
+      },
+      {
+        "folder": "知识库/ent_外观专利",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_服装品牌",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_服饰品牌",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_服饰箱包",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_消费品牌",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_餐饮品牌",
+        "count": 1
+      },
+      {
+        "folder": "知识库/品牌标志图鉴 · S",
+        "count": 1
+      }
+    ],
+    "samples": [],
+    "children": [
+      {
+        "name": "品牌标准 Logo 索引",
+        "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引",
+        "count": 3509,
+        "matched": 3509,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "logo": 3509
+        },
+        "legacyFolders": [
+          {
+            "folder": "Logo库/brand_logos",
+            "count": 3509
+          }
+        ],
+        "samples": [],
+        "children": [
+          {
+            "name": "0–9 及其他",
+            "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引/0–9 及其他",
+            "count": 40,
+            "matched": 40,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "logo": 40
+            },
+            "legacyFolders": [
+              {
+                "folder": "Logo库/brand_logos",
+                "count": 40
+              }
+            ],
+            "samples": [
+              {
+                "docId": "logo_1001tracklists",
+                "title": "1001tracklists",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_1and1",
+                "title": "1and1",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_1dot1dot1dot1",
+                "title": "1dot1dot1dot1",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_1panel",
+                "title": "1panel",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_1password",
+                "title": "1password",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_2fas",
+                "title": "2fas",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_2k",
+                "title": "2k",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_30secondsofcode",
+                "title": "30secondsofcode",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "A–C",
+            "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引/A–C",
+            "count": 677,
+            "matched": 677,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "logo": 677
+            },
+            "legacyFolders": [
+              {
+                "folder": "Logo库/brand_logos",
+                "count": 677
+              }
+            ],
+            "samples": [
+              {
+                "docId": "logo_abb",
+                "title": "abb",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_abbott",
+                "title": "abbott",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_abbvie",
+                "title": "abbvie",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_abdownloadmanager",
+                "title": "abdownloadmanager",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_aboutdotme",
+                "title": "aboutdotme",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_abstract",
+                "title": "abstract",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_abusedotch",
+                "title": "abusedotch",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_ac_milan",
+                "title": "ac_milan",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "D–G",
+            "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引/D–G",
+            "count": 579,
+            "matched": 579,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "logo": 579
+            },
+            "legacyFolders": [
+              {
+                "folder": "Logo库/brand_logos",
+                "count": 579
+              }
+            ],
+            "samples": [
+              {
+                "docId": "logo_d",
+                "title": "d",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_d3",
+                "title": "d3",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_dacia",
+                "title": "dacia",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_daf",
+                "title": "daf",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_dailydotdev",
+                "title": "dailydotdev",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_dailymotion",
+                "title": "dailymotion",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_daisyui",
+                "title": "daisyui",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_dallas_cowboys",
+                "title": "dallas_cowboys",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "H–L",
+            "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引/H–L",
+            "count": 497,
+            "matched": 497,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "logo": 497
+            },
+            "legacyFolders": [
+              {
+                "folder": "Logo库/brand_logos",
+                "count": 497
+              }
+            ],
+            "samples": [
+              {
+                "docId": "logo_h2database",
+                "title": "h2database",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_h3",
+                "title": "h3",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_habr",
+                "title": "habr",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_hackaday",
+                "title": "hackaday",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_hackclub",
+                "title": "hackclub",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_hackerearth",
+                "title": "hackerearth",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_hackernoon",
+                "title": "hackernoon",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_hackerone",
+                "title": "hackerone",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "M–P",
+            "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引/M–P",
+            "count": 658,
+            "matched": 658,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "logo": 658
+            },
+            "legacyFolders": [
+              {
+                "folder": "Logo库/brand_logos",
+                "count": 658
+              }
+            ],
+            "samples": [
+              {
+                "docId": "logo_m5stack",
+                "title": "m5stack",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_maas",
+                "title": "maas",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_macos",
+                "title": "macos",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_macpaw",
+                "title": "macpaw",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_macports",
+                "title": "macports",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_macys",
+                "title": "macys",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_magasinsu",
+                "title": "magasinsu",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_magic",
+                "title": "magic",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "Q–S",
+            "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引/Q–S",
+            "count": 524,
+            "matched": 524,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "logo": 524
+            },
+            "legacyFolders": [
+              {
+                "folder": "Logo库/brand_logos",
+                "count": 524
+              }
+            ],
+            "samples": [
+              {
+                "docId": "logo_qantas",
+                "title": "qantas",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_qase",
+                "title": "qase",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_qatarairways",
+                "title": "qatarairways",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_qbittorrent",
+                "title": "qbittorrent",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_qdrant",
+                "title": "qdrant",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_qemu",
+                "title": "qemu",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_qgis",
+                "title": "qgis",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_qi",
+                "title": "qi",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "T–Z",
+            "path": "01 · 品牌与商标图鉴/品牌标准 Logo 索引/T–Z",
+            "count": 534,
+            "matched": 534,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "logo": 534
+            },
+            "legacyFolders": [
+              {
+                "folder": "Logo库/brand_logos",
+                "count": 534
+              }
+            ],
+            "samples": [
+              {
+                "docId": "logo_tabelog",
+                "title": "tabelog",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_tablecheck",
+                "title": "tablecheck",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_tacobell",
+                "title": "tacobell",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_tado",
+                "title": "tado",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_taichigraphics",
+                "title": "taichigraphics",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_taichilang",
+                "title": "taichilang",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_tails",
+                "title": "tails",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              },
+              {
+                "docId": "logo_tailscale",
+                "title": "tailscale",
+                "origin": "logo",
+                "status": "matched",
+                "legacyFolder": "Logo库/brand_logos",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "时尚服饰与箱包品牌",
+        "path": "01 · 品牌与商标图鉴/时尚服饰与箱包品牌",
+        "count": 7,
+        "matched": 1,
+        "pending": 0,
+        "unmatched": 6,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 7
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_时尚品牌",
+            "count": 4
+          },
+          {
+            "folder": "知识库/ent_服装品牌",
+            "count": 1
+          },
+          {
+            "folder": "知识库/ent_服饰品牌",
+            "count": 1
+          },
+          {
+            "folder": "知识库/ent_服饰箱包",
+            "count": 1
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00176_汤美费格_Tommy_Hilfiger_",
+            "title": "汤美费格（Tommy Hilfiger）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_时尚品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00189_盖尔斯_GUESS_",
+            "title": "盖尔斯（GUESS）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_时尚品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00220_bebe_美国时尚女装品牌_",
+            "title": "bebe（美国时尚女装品牌）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_时尚品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00227_GANT_甘特_含同系品牌_Aigle_与_The_Kooples_",
+            "title": "GANT（甘特，含同系品牌 Aigle 与 The Kooples）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_时尚品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00175_香蕉共和国_Banana_Republic_",
+            "title": "香蕉共和国（Banana Republic）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_服装品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00437_霍利斯特_Hollister_Co_",
+            "title": "霍利斯特（Hollister Co.）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_服饰品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00255_途明_TUMI_",
+            "title": "途明（TUMI）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_服饰箱包",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "汽车与交通品牌",
+        "path": "01 · 品牌与商标图鉴/汽车与交通品牌",
+        "count": 3,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 3,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 3
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_汽车",
+            "count": 3
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00380_梅赛德斯_奔驰_Mercedes_Benz_",
+            "title": "梅赛德斯-奔驰（Mercedes-Benz）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_汽车",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00382_知名汽车品牌商标_Automotive_Brands_Car_Logos_",
+            "title": "知名汽车品牌商标（Automotive Brands / Car Logos）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_汽车",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04985_别克_Buick_",
+            "title": "别克（Buick）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_汽车",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "消费与综合商业品牌",
+        "path": "01 · 品牌与商标图鉴/消费与综合商业品牌",
+        "count": 83,
+        "matched": 9,
+        "pending": 0,
+        "unmatched": 74,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 83
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_其他",
+            "count": 77
+          },
+          {
+            "folder": "知识库/brand",
+            "count": 2
+          },
+          {
+            "folder": "知识库/ent_外观专利",
+            "count": 1
+          },
+          {
+            "folder": "知识库/ent_消费品牌",
+            "count": 1
+          },
+          {
+            "folder": "知识库/ent_餐饮品牌",
+            "count": 1
+          },
+          {
+            "folder": "知识库/品牌标志图鉴 · S",
+            "count": 1
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00413_GoPro",
+            "title": "GoPro",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05041_AJ_Snifty_贴纸_IP",
+            "title": "AJ Snifty 贴纸 IP",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00177_UGG_UGG_Australia_",
+            "title": "UGG（UGG Australia）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_其他",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00178_莫尔森_Molson_",
+            "title": "莫尔森（Molson）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_其他",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00223_百威啤酒_Budweiser_",
+            "title": "百威啤酒（Budweiser）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_其他",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00224_贝克啤酒_Beck_s_",
+            "title": "贝克啤酒（Beck's）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_其他",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00225_Cookies_Cookies_SF_",
+            "title": "Cookies（Cookies SF）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_其他",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00229_古林兄弟_Goorin_Bros_",
+            "title": "古林兄弟（Goorin Bros.）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_其他",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "设计师与潮流时尚品牌",
+        "path": "01 · 品牌与商标图鉴/设计师与潮流时尚品牌",
+        "count": 135,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 135,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 135
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ov",
+            "count": 135
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00005_欧克利_Oakley_",
+            "title": "欧克利（Oakley）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00022_C_P_Company",
+            "title": "C.P. Company",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00023_Fear_of_God",
+            "title": "Fear of God",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00024_Gentle_Monster",
+            "title": "Gentle Monster",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00025_Human_Made",
+            "title": "Human Made",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00026_JMM_Jacques_Marie_Mage_",
+            "title": "JMM（Jacques Marie Mage）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00027_Khaite",
+            "title": "Khaite",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00029_Off_White",
+            "title": "Off-White",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ov",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "运动与户外品牌",
+        "path": "01 · 品牌与商标图鉴/运动与户外品牌",
+        "count": 14,
+        "matched": 2,
+        "pending": 0,
+        "unmatched": 12,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 14
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_运动品牌",
+            "count": 14
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00376_AGV",
+            "title": "AGV",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00392_蝴蝶牌_Butterfly_",
+            "title": "蝴蝶牌（Butterfly）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00393_Vision_Street_Wear_维新街头滑板_",
+            "title": "Vision Street Wear（维新街头滑板）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00394_VISION_STREET_WEAR",
+            "title": "VISION STREET WEAR",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00395_威尔胜_Wilson_Wilson_Sporting_Goods_",
+            "title": "威尔胜（Wilson / Wilson Sporting Goods）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00396_科斯塔_Costa_Del_Mar_COSTA_",
+            "title": "科斯塔（Costa Del Mar / COSTA）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00397_Kimes_Ranch_凯姆斯牧场_",
+            "title": "Kimes Ranch（凯姆斯牧场）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00398_拉科斯特_Lacoste_",
+            "title": "拉科斯特（Lacoste）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_运动品牌",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "顶级奢侈与标杆品牌",
+        "path": "01 · 品牌与商标图鉴/顶级奢侈与标杆品牌",
+        "count": 28,
+        "matched": 5,
+        "pending": 0,
+        "unmatched": 23,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 28
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/brand_sec",
+            "count": 20
+          },
+          {
+            "folder": "知识库/ent_奢侈品牌",
+            "count": 8
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00007_罗意威_Loewe_",
+            "title": "罗意威（Loewe）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00010_博柏利_Burberry_",
+            "title": "博柏利（Burberry）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00011_巴塔哥尼亚_Patagonia_",
+            "title": "巴塔哥尼亚（Patagonia）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00012_巴黎世家_Balenciaga_",
+            "title": "巴黎世家（Balenciaga）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00013_普拉达_Prada_",
+            "title": "普拉达（Prada）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00014_梵克雅宝_Van_Cleef_Arpels_",
+            "title": "梵克雅宝（Van Cleef & Arpels）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00015_蒂芙尼_Tiffany_Co_",
+            "title": "蒂芙尼（Tiffany & Co.）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00016_蔻依_Chloé_",
+            "title": "蔻依（Chloé）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/brand_sec",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      }
+    ],
+    "description": "聚合标准品牌 Logo（按字母均匀分桶）、顶级奢侈品牌、设计师潮流品牌与各消费行业品牌图鉴。"
+  },
+  {
+    "name": "02 · 动漫、影视与娱乐 IP",
+    "path": "02 · 动漫、影视与娱乐 IP",
+    "count": 2413,
+    "matched": 1080,
+    "pending": 11,
+    "unmatched": 1322,
+    "anomalyCount": 0,
+    "origins": {
+      "kb": 2413
+    },
+    "legacyFolders": [
+      {
+        "folder": "知识库/anime_char",
+        "count": 732
+      },
+      {
+        "folder": "知识库/film_char",
+        "count": 355
+      },
+      {
+        "folder": "知识库/宝可梦 · 第五世代",
+        "count": 156
+      },
+      {
+        "folder": "知识库/宝可梦 · 第一世代",
+        "count": 151
+      },
+      {
+        "folder": "知识库/宝可梦 · 第三世代",
+        "count": 135
+      },
+      {
+        "folder": "知识库/宝可梦 · 第九世代",
+        "count": 120
+      },
+      {
+        "folder": "知识库/宝可梦 · 第四世代",
+        "count": 107
+      },
+      {
+        "folder": "知识库/宝可梦 · 第二世代",
+        "count": 100
+      },
+      {
+        "folder": "知识库/宝可梦 · 第八世代",
+        "count": 96
+      },
+      {
+        "folder": "知识库/其他动漫 ／ 游戏 IP",
+        "count": 95
+      },
+      {
+        "folder": "知识库/宝可梦 · 第七世代",
+        "count": 88
+      },
+      {
+        "folder": "知识库/宝可梦 · 第六世代",
+        "count": 72
+      },
+      {
+        "folder": "知识库/ent_动漫IP",
+        "count": 51
+      },
+      {
+        "folder": "知识库/影视角色",
+        "count": 50
+      },
+      {
+        "folder": "知识库/ent_游戏IP",
+        "count": 19
+      },
+      {
+        "folder": "知识库/ent_影视IP",
+        "count": 16
+      },
+      {
+        "folder": "知识库/ent_音乐人",
+        "count": 14
+      },
+      {
+        "folder": "知识库/pokemon_第一世代",
+        "count": 8
+      },
+      {
+        "folder": "知识库/ent_乐队",
+        "count": 7
+      },
+      {
+        "folder": "知识库/pokemon_第四世代",
+        "count": 7
+      },
+      {
+        "folder": "知识库/pokemon_其他世代／形态",
+        "count": 5
+      },
+      {
+        "folder": "知识库/ent_乐队 ／ 音乐人",
+        "count": 4
+      },
+      {
+        "folder": "知识库/pokemon_第二世代",
+        "count": 4
+      },
+      {
+        "folder": "知识库/pokemon_第七世代",
+        "count": 3
+      },
+      {
+        "folder": "知识库/pokemon_第五世代",
+        "count": 3
+      },
+      {
+        "folder": "知识库/ent_视觉艺术家",
+        "count": 2
+      },
+      {
+        "folder": "知识库/pokemon_第三世代",
+        "count": 2
+      },
+      {
+        "folder": "知识库/pokemon_第八世代",
+        "count": 2
+      },
+      {
+        "folder": "知识库/宝可梦 · 道具",
+        "count": 2
+      },
+      {
+        "folder": "知识库/ent_形象IP",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_玩具品牌／IP",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_音乐人 ／ 乐队",
+        "count": 1
+      },
+      {
+        "folder": "知识库/pokemon_第九世代",
+        "count": 1
+      },
+      {
+        "folder": "知识库/宝可梦 · 人物",
+        "count": 1
+      },
+      {
+        "folder": "知识库/宝可梦 · 总 IP",
+        "count": 1
+      },
+      {
+        "folder": "知识库/宝可梦 · 组织",
+        "count": 1
+      }
+    ],
+    "samples": [],
+    "children": [
+      {
+        "name": "动漫与形象综合 IP",
+        "path": "02 · 动漫、影视与娱乐 IP/动漫与形象综合 IP",
+        "count": 148,
+        "matched": 9,
+        "pending": 10,
+        "unmatched": 129,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 148
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/其他动漫 ／ 游戏 IP",
+            "count": 95
+          },
+          {
+            "folder": "知识库/ent_动漫IP",
+            "count": 51
+          },
+          {
+            "folder": "知识库/ent_形象IP",
+            "count": 1
+          },
+          {
+            "folder": "知识库/ent_玩具品牌／IP",
+            "count": 1
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00173_DC漫画_DC_Comics_",
+            "title": "DC漫画（DC Comics）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00180_神探狗狗_Dog_Man_Dav_Pilkey_",
+            "title": "神探狗狗（Dog Man / Dav Pilkey）",
+            "origin": "kb",
+            "status": "pending",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00181_漫威角色_Marvel_Characters_",
+            "title": "漫威角色（Marvel Characters）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00182_汪汪队徽章_PAW_Patrol_Badge_",
+            "title": "汪汪队徽章（PAW Patrol Badge）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00187_灌篮高手_SLAM_DUNK_",
+            "title": "灌篮高手（SLAM DUNK）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00200_鬼灭之刃_Demon_Slayer_鬼滅の刃_",
+            "title": "鬼灭之刃（Demon Slayer / 鬼滅の刃）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00201_初音未来_Hatsune_Miku_初音ミク_",
+            "title": "初音未来（Hatsune Miku / 初音ミク）",
+            "origin": "kb",
+            "status": "pending",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00202__Re_从零开始的异世界生活_Re_Zero_Starting_Life_in_",
+            "title": "《Re:从零开始的异世界生活》（Re:Zero -Starting Life in Another World-）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_动漫IP",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "动漫与漫画角色",
+        "path": "02 · 动漫、影视与娱乐 IP/动漫与漫画角色",
+        "count": 732,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 732,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 732
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/anime_char",
+            "count": 732
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00174_灭霸_Thanos_",
+            "title": "灭霸（Thanos）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00337_超人_Superman_",
+            "title": "超人（Superman）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00345_钢铁侠_Iron_Man_",
+            "title": "钢铁侠（Iron Man）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00346_美国队长_Captain_America_",
+            "title": "美国队长（Captain America）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00347_雷神_Thor_",
+            "title": "雷神（Thor）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00348_洛基_Loki_",
+            "title": "洛基（Loki）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_03742_佐野万次郎_Mikey_Manjiro_Sano_Mikey_",
+            "title": "佐野万次郎（Mikey）（Manjiro Sano (Mikey)）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_03743_松野千冬_Chifuyu_Matsuno_",
+            "title": "松野千冬（Chifuyu Matsuno）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/anime_char",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "宝可梦专题",
+        "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题",
+        "count": 1065,
+        "matched": 1065,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 1065
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/宝可梦 · 第五世代",
+            "count": 156
+          },
+          {
+            "folder": "知识库/宝可梦 · 第一世代",
+            "count": 151
+          },
+          {
+            "folder": "知识库/宝可梦 · 第三世代",
+            "count": 135
+          },
+          {
+            "folder": "知识库/宝可梦 · 第九世代",
+            "count": 120
+          },
+          {
+            "folder": "知识库/宝可梦 · 第四世代",
+            "count": 107
+          },
+          {
+            "folder": "知识库/宝可梦 · 第二世代",
+            "count": 100
+          },
+          {
+            "folder": "知识库/宝可梦 · 第八世代",
+            "count": 96
+          },
+          {
+            "folder": "知识库/宝可梦 · 第七世代",
+            "count": 88
+          },
+          {
+            "folder": "知识库/宝可梦 · 第六世代",
+            "count": 72
+          },
+          {
+            "folder": "知识库/pokemon_第一世代",
+            "count": 8
+          },
+          {
+            "folder": "知识库/pokemon_第四世代",
+            "count": 7
+          },
+          {
+            "folder": "知识库/pokemon_其他世代／形态",
+            "count": 5
+          },
+          {
+            "folder": "知识库/pokemon_第二世代",
+            "count": 4
+          },
+          {
+            "folder": "知识库/pokemon_第七世代",
+            "count": 3
+          },
+          {
+            "folder": "知识库/pokemon_第五世代",
+            "count": 3
+          },
+          {
+            "folder": "知识库/pokemon_第三世代",
+            "count": 2
+          },
+          {
+            "folder": "知识库/pokemon_第八世代",
+            "count": 2
+          },
+          {
+            "folder": "知识库/宝可梦 · 道具",
+            "count": 2
+          },
+          {
+            "folder": "知识库/pokemon_第九世代",
+            "count": 1
+          },
+          {
+            "folder": "知识库/宝可梦 · 人物",
+            "count": 1
+          },
+          {
+            "folder": "知识库/宝可梦 · 总 IP",
+            "count": 1
+          },
+          {
+            "folder": "知识库/宝可梦 · 组织",
+            "count": 1
+          }
+        ],
+        "samples": [],
+        "children": [
+          {
+            "name": "总览、人物与道具",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/总览、人物与道具",
+            "count": 10,
+            "matched": 10,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 10
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/pokemon_其他世代／形态",
+                "count": 5
+              },
+              {
+                "folder": "知识库/宝可梦 · 道具",
+                "count": 2
+              },
+              {
+                "folder": "知识库/宝可梦 · 人物",
+                "count": 1
+              },
+              {
+                "folder": "知识库/宝可梦 · 总 IP",
+                "count": 1
+              },
+              {
+                "folder": "知识库/宝可梦 · 组织",
+                "count": 1
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_04910_Pokemon_Pokemon_",
+                "title": "Pokemon（Pokemon）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_其他世代／形态",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04911_骑拉帝纳_Giratina_",
+                "title": "骑拉帝纳（Giratina）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_其他世代／形态",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07211_Pokémon_Pokémon_",
+                "title": "Pokémon（Pokémon）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_其他世代／形态",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07220_水跃鱼_Mudkip_",
+                "title": "水跃鱼（Mudkip）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_其他世代／形态",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07232_长尾怪手_Aipom_",
+                "title": "长尾怪手（Aipom）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_其他世代／形态",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05948_小智_Ash_Ketchum_",
+                "title": "小智（Ash Ketchum）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 人物",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05947_宝可梦_专题长文",
+                "title": "宝可梦 · 专题长文",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 总 IP",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04880_火箭队_Team_Rocket_",
+                "title": "火箭队（Team Rocket）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 组织",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第一世代 · 关都",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第一世代 · 关都",
+            "count": 159,
+            "matched": 159,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 159
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第一世代",
+                "count": 151
+              },
+              {
+                "folder": "知识库/pokemon_第一世代",
+                "count": 8
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_07216_六尾_Vulpix_",
+                "title": "六尾（Vulpix）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07218_独角虫_Weedle_",
+                "title": "独角虫（Weedle）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07221_大食花_Victreebel_",
+                "title": "大食花（Victreebel）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07222_蚊香君_Poliwhirl_",
+                "title": "蚊香君（Poliwhirl）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07226_伽勒尔小火马_Galarian_Ponyta_",
+                "title": "伽勒尔小火马（Galarian Ponyta）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07227_走路草_Oddish_",
+                "title": "走路草（Oddish）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07234_鸭嘴火兽_Magmar_",
+                "title": "鸭嘴火兽（Magmar）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07238_妙蛙花_Venusaur_",
+                "title": "妙蛙花（Venusaur）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第一世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第七世代 · 阿罗拉",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第七世代 · 阿罗拉",
+            "count": 91,
+            "matched": 91,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 91
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第七世代",
+                "count": 88
+              },
+              {
+                "folder": "知识库/pokemon_第七世代",
+                "count": 3
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_07224_鬃岩狼人_Lycanroc_",
+                "title": "鬃岩狼人（Lycanroc）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第七世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07228_火斑喵_Litten_",
+                "title": "火斑喵（Litten）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第七世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07240_老翁龙_Drampa_",
+                "title": "老翁龙（Drampa）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第七世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04576_No_722_木木枭",
+                "title": "No.722 木木枭",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第七世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04577_No_723_投羽枭",
+                "title": "No.723 投羽枭",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第七世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04578_No_724_狙射树枭",
+                "title": "No.724 狙射树枭",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第七世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04579_No_725_火斑喵",
+                "title": "No.725 火斑喵",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第七世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04580_No_726_炎热喵",
+                "title": "No.726 炎热喵",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第七世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第三世代 · 丰缘",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第三世代 · 丰缘",
+            "count": 137,
+            "matched": 137,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 137
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第三世代",
+                "count": 135
+              },
+              {
+                "folder": "知识库/pokemon_第三世代",
+                "count": 2
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_04912_超级蜥蜴王_Mega_Sceptile_",
+                "title": "超级蜥蜴王（Mega Sceptile）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第三世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07219_刺尾虫_Wurmple_",
+                "title": "刺尾虫（Wurmple）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第三世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04106_No_252_木守宫",
+                "title": "No.252 木守宫",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第三世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04107_No_253_森林蜥蜴",
+                "title": "No.253 森林蜥蜴",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第三世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04108_No_254_蜥蜴王",
+                "title": "No.254 蜥蜴王",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第三世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04109_No_255_火稚鸡",
+                "title": "No.255 火稚鸡",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第三世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04110_No_256_力壮鸡",
+                "title": "No.256 力壮鸡",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第三世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04111_No_257_火焰鸡",
+                "title": "No.257 火焰鸡",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第三世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第九世代 · 帕底亚",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第九世代 · 帕底亚",
+            "count": 121,
+            "matched": 121,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 121
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第九世代",
+                "count": 120
+              },
+              {
+                "folder": "知识库/pokemon_第九世代",
+                "count": 1
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_07231_苍炎刃鬼_Ceruledge_",
+                "title": "苍炎刃鬼（Ceruledge）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第九世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04760_No_906_新叶喵",
+                "title": "No.906 新叶喵",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第九世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04761_No_907_蒂蕾喵",
+                "title": "No.907 蒂蕾喵",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第九世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04762_No_908_魔幻假面喵",
+                "title": "No.908 魔幻假面喵",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第九世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04763_No_909_呆火鳄",
+                "title": "No.909 呆火鳄",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第九世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04764_No_910_炙烫鳄",
+                "title": "No.910 炙烫鳄",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第九世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04765_No_911_骨纹巨声鳄",
+                "title": "No.911 骨纹巨声鳄",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第九世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04766_No_912_润水鸭",
+                "title": "No.912 润水鸭",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第九世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第二世代 · 城都",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第二世代 · 城都",
+            "count": 104,
+            "matched": 104,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 104
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第二世代",
+                "count": 100
+              },
+              {
+                "folder": "知识库/pokemon_第二世代",
+                "count": 4
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_07225_洛奇亚_Lugia_",
+                "title": "洛奇亚（Lugia）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第二世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07230_雷公_Raikou_",
+                "title": "雷公（Raikou）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第二世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07235_菊草叶_Chikorita_",
+                "title": "菊草叶（Chikorita）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第二世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07239_火球鼠_Cyndaquil_",
+                "title": "火球鼠（Cyndaquil）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第二世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04006_No_152_菊草叶",
+                "title": "No.152 菊草叶",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第二世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04007_No_153_月桂叶",
+                "title": "No.153 月桂叶",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第二世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04008_No_154_大竺葵",
+                "title": "No.154 大竺葵",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第二世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04009_No_155_火球鼠",
+                "title": "No.155 火球鼠",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第二世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第五世代 · 合众",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第五世代 · 合众",
+            "count": 159,
+            "matched": 159,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 159
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第五世代",
+                "count": 156
+              },
+              {
+                "folder": "知识库/pokemon_第五世代",
+                "count": 3
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_07213_哈约克_Herdier_",
+                "title": "哈约克（Herdier）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第五世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07217_莱希拉姆_Reshiram_",
+                "title": "莱希拉姆（Reshiram）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第五世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07237_君主蛇_Serperior_",
+                "title": "君主蛇（Serperior）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第五世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04348_No_494_比克提尼",
+                "title": "No.494 比克提尼",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第五世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04349_No_495_藤藤蛇",
+                "title": "No.495 藤藤蛇",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第五世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04350_No_496_青藤蛇",
+                "title": "No.496 青藤蛇",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第五世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04351_No_497_君主蛇",
+                "title": "No.497 君主蛇",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第五世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04352_No_498_暖暖猪",
+                "title": "No.498 暖暖猪",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第五世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第八世代 · 伽勒尔",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第八世代 · 伽勒尔",
+            "count": 98,
+            "matched": 98,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 98
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第八世代",
+                "count": 96
+              },
+              {
+                "folder": "知识库/pokemon_第八世代",
+                "count": 2
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_07233_霜奶仙_Alcremie_",
+                "title": "霜奶仙（Alcremie）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第八世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07241_逐电犬_Boltund_",
+                "title": "逐电犬（Boltund）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第八世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04664_No_810_敲音猴",
+                "title": "No.810 敲音猴",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第八世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04665_No_811_啪咚猴",
+                "title": "No.811 啪咚猴",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第八世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04666_No_812_轰擂金刚猩",
+                "title": "No.812 轰擂金刚猩",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第八世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04667_No_813_炎兔儿",
+                "title": "No.813 炎兔儿",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第八世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04668_No_814_腾蹴小将",
+                "title": "No.814 腾蹴小将",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第八世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04669_No_815_闪焰王牌",
+                "title": "No.815 闪焰王牌",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第八世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第六世代 · 卡洛斯",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第六世代 · 卡洛斯",
+            "count": 72,
+            "matched": 72,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 72
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第六世代",
+                "count": 72
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_04504_No_650_哈力栗",
+                "title": "No.650 哈力栗",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04505_No_651_胖胖哈力",
+                "title": "No.651 胖胖哈力",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04506_No_652_布里卡隆",
+                "title": "No.652 布里卡隆",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04507_No_653_火狐狸",
+                "title": "No.653 火狐狸",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04508_No_654_长尾火狐",
+                "title": "No.654 长尾火狐",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04509_No_655_妖火红狐",
+                "title": "No.655 妖火红狐",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04510_No_656_呱呱泡蛙",
+                "title": "No.656 呱呱泡蛙",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04511_No_657_呱头蛙",
+                "title": "No.657 呱头蛙",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第六世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "第四世代 · 神奥",
+            "path": "02 · 动漫、影视与娱乐 IP/宝可梦专题/第四世代 · 神奥",
+            "count": 114,
+            "matched": 114,
+            "pending": 0,
+            "unmatched": 0,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 114
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/宝可梦 · 第四世代",
+                "count": 107
+              },
+              {
+                "folder": "知识库/pokemon_第四世代",
+                "count": 7
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_07212_叶伊布_Leafeon_",
+                "title": "叶伊布（Leafeon）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第四世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07214_花岩怪_Spiritomb_",
+                "title": "花岩怪（Spiritomb）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第四世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07215_圆陆鲨_Gible_",
+                "title": "圆陆鲨（Gible）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第四世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07223_多边兽Z_Porygon_Z_",
+                "title": "多边兽Z（Porygon-Z）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第四世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07229_波加曼_Piplup_",
+                "title": "波加曼（Piplup）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第四世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07236_伦琴猫_Luxray_",
+                "title": "伦琴猫（Luxray）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第四世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07242_艾路雷朵_Gallade_",
+                "title": "艾路雷朵（Gallade）",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/pokemon_第四世代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_04241_No_387_草苗龟",
+                "title": "No.387 草苗龟",
+                "origin": "kb",
+                "status": "matched",
+                "legacyFolder": "知识库/宝可梦 · 第四世代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "影视与动画角色",
+        "path": "02 · 动漫、影视与娱乐 IP/影视与动画角色",
+        "count": 405,
+        "matched": 1,
+        "pending": 0,
+        "unmatched": 404,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 405
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/film_char",
+            "count": 355
+          },
+          {
+            "folder": "知识库/影视角色",
+            "count": 50
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_04927_甘道夫_Gandalf_",
+            "title": "甘道夫（Gandalf）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04928_莱戈拉斯_Legolas_",
+            "title": "莱戈拉斯（Legolas）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04929_咕噜_Gollum_",
+            "title": "咕噜（Gollum）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04930_雷神_索尔_奥丁森_Thor_Odinson_",
+            "title": "雷神（索尔·奥丁森）（Thor Odinson）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04931_海王_亚瑟_库瑞_Aquaman_Arthur_Curry_",
+            "title": "海王 / 亚瑟·库瑞（Aquaman / Arthur Curry）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04932_沙赞_比利_巴特森_Shazam_Billy_Batson_",
+            "title": "沙赞 / 比利·巴特森（Shazam / Billy Batson）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04933_和平使者_克里斯托弗_史密斯_Peacemaker_Christopher_Sm",
+            "title": "和平使者 / 克里斯托弗·史密斯（Peacemaker / Christopher Smith）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04934_达斯_维达_Darth_Vader_",
+            "title": "达斯·维达（Darth Vader）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/film_char",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "影视作品与厂牌 IP",
+        "path": "02 · 动漫、影视与娱乐 IP/影视作品与厂牌 IP",
+        "count": 16,
+        "matched": 1,
+        "pending": 0,
+        "unmatched": 15,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 16
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_影视IP",
+            "count": 16
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00004_坏蛋联盟_The_Bad_Guys_",
+            "title": "坏蛋联盟（The Bad Guys）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00362_迪士尼_Disney_",
+            "title": "迪士尼（Disney）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00363_安娜贝尔_Annabelle_",
+            "title": "安娜贝尔（Annabelle）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00364_沙丘_Dune_",
+            "title": "沙丘（Dune）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00365_E_T_外星人_E_T_the_Extra_Terrestrial_",
+            "title": "E.T. 外星人（E.T. the Extra-Terrestrial）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00366_魔发精灵_Trolls_",
+            "title": "魔发精灵（Trolls）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00367__小丑回魂_IT_Pennywise_",
+            "title": "《小丑回魂》（IT / Pennywise）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00372_魔法坏女巫_Wicked_",
+            "title": "魔法坏女巫（Wicked）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_影视IP",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "游戏 IP",
+        "path": "02 · 动漫、影视与娱乐 IP/游戏 IP",
+        "count": 19,
+        "matched": 2,
+        "pending": 0,
+        "unmatched": 17,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 19
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_游戏IP",
+            "count": 19
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00183_太空狼人杀_Among_Us_",
+            "title": "太空狼人杀（Among Us）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00184_丹迪的世界_Dandy_s_World_",
+            "title": "丹迪的世界（Dandy's World）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00185_愤怒的小鸟_Angry_Birds_",
+            "title": "愤怒的小鸟（Angry Birds）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00205_荒野乱斗_Brawl_Stars_",
+            "title": "荒野乱斗 (Brawl Stars)",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00356_辐射系列_Fallout_",
+            "title": "辐射系列（Fallout）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00357_极限竞速_Forza_",
+            "title": "极限竞速（Forza）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00358_姜饼人王国_CookieRun_Kingdom_",
+            "title": "姜饼人王国（CookieRun: Kingdom）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00359_地产大亨_大富翁_Monopoly_",
+            "title": "地产大亨 / 大富翁（Monopoly）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_游戏IP",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "音乐人、乐队与视觉艺术家",
+        "path": "02 · 动漫、影视与娱乐 IP/音乐人、乐队与视觉艺术家",
+        "count": 28,
+        "matched": 2,
+        "pending": 1,
+        "unmatched": 25,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 28
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_音乐人",
+            "count": 14
+          },
+          {
+            "folder": "知识库/ent_乐队",
+            "count": 7
+          },
+          {
+            "folder": "知识库/ent_乐队 ／ 音乐人",
+            "count": 4
+          },
+          {
+            "folder": "知识库/ent_视觉艺术家",
+            "count": 2
+          },
+          {
+            "folder": "知识库/ent_音乐人 ／ 乐队",
+            "count": 1
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00206_单向组合_One_Direction_",
+            "title": "单向组合（One Direction）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_乐队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00368_绿日乐队_Green_Day_",
+            "title": "绿日乐队（Green Day）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_乐队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00369_枪与玫瑰乐队_Guns_N_Roses_",
+            "title": "枪与玫瑰乐队（Guns N' Roses）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_乐队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00371_拉特乐队_Ratt_",
+            "title": "拉特乐队（Ratt）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_乐队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04981_阿巴乐队_ABBA_",
+            "title": "阿巴乐队（ABBA）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_乐队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04982_AC_DC乐队_AC_DC_",
+            "title": "AC/DC乐队（AC/DC）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_乐队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04983_杀手乐队_Slayer_",
+            "title": "杀手乐队（Slayer）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_乐队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00186_齐柏林飞艇乐队_Led_Zeppelin_",
+            "title": "齐柏林飞艇乐队（Led Zeppelin）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_乐队 ／ 音乐人",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      }
+    ],
+    "description": "合并割裂的中英文宝可梦世代目录，并规整动漫角色、影视角色、游戏/影视 IP 及音乐视觉艺术家。"
+  },
+  {
+    "name": "03 · 体育赛事、球队与机构",
+    "path": "03 · 体育赛事、球队与机构",
+    "count": 297,
+    "matched": 254,
+    "pending": 0,
+    "unmatched": 43,
+    "anomalyCount": 0,
+    "origins": {
+      "kb": 48,
+      "sport": 249
+    },
+    "legacyFolders": [
+      {
+        "folder": "Sports/football_big5",
+        "count": 101
+      },
+      {
+        "folder": "Sports/us_pro_core",
+        "count": 64
+      },
+      {
+        "folder": "Sports/us_pro_extended",
+        "count": 64
+      },
+      {
+        "folder": "Sports/ncaa",
+        "count": 20
+      },
+      {
+        "folder": "知识库/ent_球队",
+        "count": 17
+      },
+      {
+        "folder": "知识库/ent_机构",
+        "count": 13
+      },
+      {
+        "folder": "知识库/ent_体育明星",
+        "count": 6
+      },
+      {
+        "folder": "知识库/ent_院校",
+        "count": 6
+      },
+      {
+        "folder": "知识库/ent_人物",
+        "count": 2
+      },
+      {
+        "folder": "知识库/机构与赛事标志",
+        "count": 2
+      },
+      {
+        "folder": "知识库/ent_体育IP",
+        "count": 1
+      },
+      {
+        "folder": "知识库/ent_体育娱乐IP",
+        "count": 1
+      }
+    ],
+    "samples": [],
+    "children": [
+      {
+        "name": "NCAA 与高校联盟",
+        "path": "03 · 体育赛事、球队与机构/NCAA 与高校联盟",
+        "count": 26,
+        "matched": 20,
+        "pending": 0,
+        "unmatched": 6,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 6,
+          "sport": 20
+        },
+        "legacyFolders": [
+          {
+            "folder": "Sports/ncaa",
+            "count": 20
+          },
+          {
+            "folder": "知识库/ent_院校",
+            "count": 6
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00002_加利福尼亚大学_University_of_California_含加州大学各分",
+            "title": "加利福尼亚大学（University of California，含加州大学各分校）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_院校",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00208_杜克大学_Duke_University_",
+            "title": "杜克大学（Duke University）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_院校",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00385_利伯缇大学_Liberty_University_",
+            "title": "利伯缇大学（Liberty University）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_院校",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00387_西肯塔基大学_Western_Kentucky_University_",
+            "title": "西肯塔基大学（Western Kentucky University）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_院校",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04994_俄亥俄大学与俄亥俄州立大学_Ohio_University_The_Ohio_S",
+            "title": "俄亥俄大学与俄亥俄州立大学（Ohio University / The Ohio State University）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_院校",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04996_密歇根州立大学斯巴达人队_Michigan_State_Spartans_",
+            "title": "密歇根州立大学斯巴达人队（Michigan State Spartans）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_院校",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_ncaa_alabama",
+            "title": "阿拉巴马大学红潮队",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/ncaa",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_ncaa_auburn",
+            "title": "奥本大学老虎队",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/ncaa",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "体育明星与公众人物",
+        "path": "03 · 体育赛事、球队与机构/体育明星与公众人物",
+        "count": 8,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 8,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 8
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_体育明星",
+            "count": 6
+          },
+          {
+            "folder": "知识库/ent_人物",
+            "count": 2
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_08673_诺瓦克_德约科维奇_Novak_Djokovic_",
+            "title": "诺瓦克·德约科维奇（Novak Djokovic）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_人物",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08676_内马尔_Neymar_Jr_",
+            "title": "内马尔（Neymar Jr.）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_人物",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00209_穆罕默德_阿里_Muhammad_Ali_",
+            "title": "穆罕默德·阿里（Muhammad Ali）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育明星",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00402_迭戈_马拉多纳_Diego_Maradona_",
+            "title": "迭戈·马拉多纳（Diego Maradona）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育明星",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05013_利昂内尔_梅西_Lionel_Messi_",
+            "title": "利昂内尔·梅西（Lionel Messi）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育明星",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05018_内马尔_儒尼奥尔_Neymar_Jr_Neymar_",
+            "title": "内马尔·儒尼奥尔（Neymar Jr. / Neymar）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育明星",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05021_拉明_亚马尔_Lamine_Yamal_",
+            "title": "拉明·亚马尔（Lamine Yamal）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育明星",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05022_埃维尔_克尼维尔_Evel_Knievel_",
+            "title": "埃维尔·克尼维尔（Evel Knievel）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育明星",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "北美职业体育 · 扩展联盟 (MLB & NHL)",
+        "path": "03 · 体育赛事、球队与机构/北美职业体育 · 扩展联盟 (MLB & NHL)",
+        "count": 64,
+        "matched": 64,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "sport": 64
+        },
+        "legacyFolders": [
+          {
+            "folder": "Sports/us_pro_extended",
+            "count": 64
+          }
+        ],
+        "samples": [
+          {
+            "docId": "sport_sports_league_mlb",
+            "title": "美国职业棒球大联盟（MLB）",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_league_nhl",
+            "title": "北美职业冰球联盟（NHL）",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_mlb_arizona_diamondbacks",
+            "title": "亚利桑那响尾蛇",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_mlb_athletics",
+            "title": "奥克兰/萨克拉门托运动家",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_mlb_atlanta_braves",
+            "title": "亚特兰大勇士",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_mlb_baltimore_orioles",
+            "title": "巴尔的摩金莺",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_mlb_boston_red_sox",
+            "title": "波士顿红袜",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_mlb_chicago_cubs",
+            "title": "芝加哥小熊",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_extended",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "北美职业体育 · 核心联盟 (NBA & NFL)",
+        "path": "03 · 体育赛事、球队与机构/北美职业体育 · 核心联盟 (NBA & NFL)",
+        "count": 64,
+        "matched": 64,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "sport": 64
+        },
+        "legacyFolders": [
+          {
+            "folder": "Sports/us_pro_core",
+            "count": 64
+          }
+        ],
+        "samples": [
+          {
+            "docId": "sport_sports_league_nba",
+            "title": "美国职业篮球联赛（NBA）",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_league_nfl",
+            "title": "美国国家橄榄球联盟（NFL）",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_nba_atlanta_hawks",
+            "title": "亚特兰大老鹰",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_nba_boston_celtics",
+            "title": "波士顿凯尔特人",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_nba_brooklyn_nets",
+            "title": "布鲁克林篮网",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_nba_charlotte_hornets",
+            "title": "夏洛特黄蜂",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_nba_chicago_bulls",
+            "title": "芝加哥公牛",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_nba_cleveland_cavaliers",
+            "title": "克利夫兰骑士",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/us_pro_core",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "国际机构与赛事组织",
+        "path": "03 · 体育赛事、球队与机构/国际机构与赛事组织",
+        "count": 15,
+        "matched": 3,
+        "pending": 0,
+        "unmatched": 12,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 15
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_机构",
+            "count": 13
+          },
+          {
+            "folder": "知识库/机构与赛事标志",
+            "count": 2
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00378_地狱天使摩托车俱乐部_Hells_Angels_Motorcycle_Club_",
+            "title": "地狱天使摩托车俱乐部（Hells Angels Motorcycle Club / HAMC）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00379_亨德里克车队_Hendrick_Motorsports_",
+            "title": "亨德里克车队（Hendrick Motorsports）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00384_英国石油公司_BP_British_Petroleum_",
+            "title": "英国石油公司（BP / British Petroleum）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00386_美国海军陆战队_United_States_Marine_Corps_USMC_",
+            "title": "美国海军陆战队（United States Marine Corps / USMC）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00388_美国职业篮球联赛_NBA_National_Basketball_Associa",
+            "title": "美国职业篮球联赛（NBA / National Basketball Association）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04987_红十字标志与红十字会_Red_Cross_Emblem_含德国红十字会_Deut",
+            "title": "红十字标志与红十字会（Red Cross Emblem / 含德国红十字会 Deutsches Rotes Kreuz e.V. 及瑞士红十字会）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04988__VOGUE_杂志_Vogue_",
+            "title": "《VOGUE》杂志（Vogue）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_04989_Merch_Traffic_音乐周边与品牌管理公司_",
+            "title": "Merch Traffic（音乐周边与品牌管理公司）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_机构",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "欧洲足球五大联赛",
+        "path": "03 · 体育赛事、球队与机构/欧洲足球五大联赛",
+        "count": 101,
+        "matched": 101,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "sport": 101
+        },
+        "legacyFolders": [
+          {
+            "folder": "Sports/football_big5",
+            "count": 101
+          }
+        ],
+        "samples": [
+          {
+            "docId": "sport_sports_bundesliga_1_fc_k_ln",
+            "title": "科隆足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_bundesliga_1_fc_union_berlin",
+            "title": "柏林联合足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_bundesliga_1_fsv_mainz_05",
+            "title": "美因茨足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_bundesliga_bayer_04_leverkusen",
+            "title": "勒沃库森足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_bundesliga_bayern_munich",
+            "title": "拜仁慕尼黑足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_bundesliga_borussia_dortmund",
+            "title": "多特蒙德足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_bundesliga_borussia_m_nchengladbach",
+            "title": "门兴格拉德巴赫足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          },
+          {
+            "docId": "sport_sports_bundesliga_eintracht_frankfurt",
+            "title": "法兰克福足球俱乐部",
+            "origin": "sport",
+            "status": "matched",
+            "legacyFolder": "Sports/football_big5",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "综合球队与体育 IP",
+        "path": "03 · 体育赛事、球队与机构/综合球队与体育 IP",
+        "count": 19,
+        "matched": 2,
+        "pending": 0,
+        "unmatched": 17,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 19
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/ent_球队",
+            "count": 17
+          },
+          {
+            "folder": "知识库/ent_体育IP",
+            "count": 1
+          },
+          {
+            "folder": "知识库/ent_体育娱乐IP",
+            "count": 1
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_04993_球类体育IP_涵盖俱乐部_联盟_国家队及体育明星_",
+            "title": "球类体育IP（涵盖俱乐部、联盟、国家队及体育明星）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00389_世界摔角娱乐_WWE_World_Wrestling_Entertainment",
+            "title": "世界摔角娱乐（WWE / World Wrestling Entertainment）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_体育娱乐IP",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00207_佐治亚大学斗牛犬队_Georgia_Bulldogs_",
+            "title": "佐治亚大学斗牛犬队（Georgia Bulldogs）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_球队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00400_新西兰国家男子橄榄球队_All_Blacks_全黑队_",
+            "title": "新西兰国家男子橄榄球队（All Blacks / 全黑队）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_球队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05006_职业体育俱乐部与体育明星_Professional_Sports_Clubs_S",
+            "title": "职业体育俱乐部与体育明星（Professional Sports Clubs & Sports Stars / 泛球类体育IP）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_球队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05007_亚琛足球俱乐部_Alemannia_Aachen_",
+            "title": "亚琛足球俱乐部（Alemannia Aachen）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_球队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05060_MLB_球队速查_光芒_蓝鸟_响尾蛇",
+            "title": "MLB 球队速查：光芒/蓝鸟/响尾蛇",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/ent_球队",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05061_阿拉巴马大学红潮队_Alabama_Crimson_Tide_",
+            "title": "阿拉巴马大学红潮队（Alabama Crimson Tide）",
+            "origin": "kb",
+            "status": "matched",
+            "legacyFolder": "知识库/ent_球队",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      }
+    ],
+    "description": "统一纳管欧洲足球五大联赛、北美职业联盟、NCAA 高校、体育明星及国际赛事机构。"
+  },
+  {
+    "name": "04 · 国家旗帜与地理纹章",
+    "path": "04 · 国家旗帜与地理纹章",
+    "count": 590,
+    "matched": 586,
+    "pending": 0,
+    "unmatched": 4,
+    "anomalyCount": 0,
+    "origins": {
+      "kb": 4,
+      "logo": 586
+    },
+    "legacyFolders": [
+      {
+        "folder": "Logo库/flags",
+        "count": 266
+      },
+      {
+        "folder": "Logo库/geo+regional",
+        "count": 193
+      },
+      {
+        "folder": "Logo库/emblems+geo",
+        "count": 121
+      },
+      {
+        "folder": "Logo库/brand_logos+flags",
+        "count": 5
+      },
+      {
+        "folder": "知识库/国旗与国徽",
+        "count": 2
+      },
+      {
+        "folder": "知识库/国旗与国徽 · 徽章与标志",
+        "count": 2
+      },
+      {
+        "folder": "Logo库/geo",
+        "count": 1
+      }
+    ],
+    "samples": [],
+    "children": [
+      {
+        "name": "国家与地区旗帜",
+        "path": "04 · 国家旗帜与地理纹章/国家与地区旗帜",
+        "count": 271,
+        "matched": 271,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "logo": 271
+        },
+        "legacyFolders": [
+          {
+            "folder": "Logo库/flags",
+            "count": 266
+          },
+          {
+            "folder": "Logo库/brand_logos+flags",
+            "count": 5
+          }
+        ],
+        "samples": [
+          {
+            "docId": "logo_bt",
+            "title": "不丹国旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/brand_logos+flags",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_dm",
+            "title": "多米尼克国旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/brand_logos+flags",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_eac",
+            "title": "东非共同体旗帜",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/brand_logos+flags",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_fi",
+            "title": "芬兰国旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/brand_logos+flags",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_mg",
+            "title": "马达加斯加国旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/brand_logos+flags",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_ad",
+            "title": "安道尔国旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/flags",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_ae",
+            "title": "阿拉伯联合酋长国国旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/flags",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_af",
+            "title": "阿富汗国旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/flags",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "国徽与官方纹章",
+        "path": "04 · 国家旗帜与地理纹章/国徽与官方纹章",
+        "count": 122,
+        "matched": 122,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "logo": 122
+        },
+        "legacyFolders": [
+          {
+            "folder": "Logo库/emblems+geo",
+            "count": 121
+          },
+          {
+            "folder": "Logo库/geo",
+            "count": 1
+          }
+        ],
+        "samples": [
+          {
+            "docId": "logo_badge_nasa_meatball_insignia",
+            "title": "美国国家航空航天局（NASA）肉丸徽标",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_badge_olympic_rings",
+            "title": "奥林匹克五环标志",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_badge_united_nations",
+            "title": "联合国徽记（橄榄枝世界地图）",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_br_globe",
+            "title": "br_globe",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_br_republic_emblem",
+            "title": "br_republic_emblem",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_cn_stars",
+            "title": "中华人民共和国五星红旗（五星图案）",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_emblem_albania",
+            "title": "阿尔巴尼亚国徽",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_emblem_algeria",
+            "title": "阿尔及利亚国徽",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/emblems+geo",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "地方行政区旗与地理标识",
+        "path": "04 · 国家旗帜与地理纹章/地方行政区旗与地理标识",
+        "count": 193,
+        "matched": 193,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "logo": 193
+        },
+        "legacyFolders": [
+          {
+            "folder": "Logo库/geo+regional",
+            "count": 193
+          }
+        ],
+        "samples": [
+          {
+            "docId": "logo_ES-CT_catalonia_senyera",
+            "title": "ES-CT_catalonia_senyera",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_US-CA_california_bear",
+            "title": "US-CA_california_bear",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_US-NM_new_mexico_zia",
+            "title": "US-NM_new_mexico_zia",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_US-TX_texas_lone_star",
+            "title": "US-TX_texas_lone_star",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_au_australian_capital_territory",
+            "title": "澳大利亚首都领地旗帜",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_au_new_south_wales",
+            "title": "新南威尔士州州旗",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_au_norfolk_island",
+            "title": "诺福克岛旗帜",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          },
+          {
+            "docId": "logo_au_northern_territory",
+            "title": "北领地旗帜",
+            "origin": "logo",
+            "status": "matched",
+            "legacyFolder": "Logo库/geo+regional",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "旗帜纹章合规与速查指南",
+        "path": "04 · 国家旗帜与地理纹章/旗帜纹章合规与速查指南",
+        "count": 4,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 4,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 4
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/国旗与国徽",
+            "count": 2
+          },
+          {
+            "folder": "知识库/国旗与国徽 · 徽章与标志",
+            "count": 2
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_08250_国旗与国徽识别及合规指南",
+            "title": "国旗与国徽识别及合规指南",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/国旗与国徽",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08410_纹章学速览",
+            "title": "纹章学速览",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/国旗与国徽",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08406_国家与官方_徽章",
+            "title": "国家与官方 徽章",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/国旗与国徽 · 徽章与标志",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08407_2022年卡塔尔世界杯_徽章",
+            "title": "2022年卡塔尔世界杯 徽章",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/国旗与国徽 · 徽章与标志",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      }
+    ],
+    "description": "收敛各国国旗、地方行政区旗、国徽纹章与合规识别速查手册。"
+  },
+  {
+    "name": "05 · 视觉设计、纹样与工艺知识库",
+    "path": "05 · 视觉设计、纹样与工艺知识库",
+    "count": 372,
+    "matched": 0,
+    "pending": 0,
+    "unmatched": 372,
+    "anomalyCount": 0,
+    "origins": {
+      "kb": 372
+    },
+    "legacyFolders": [
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+        "count": 79
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+        "count": 79
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 材质",
+        "count": 45
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+        "count": 31
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 标识体系",
+        "count": 30
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 工艺",
+        "count": 28
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+        "count": 21
+      },
+      {
+        "folder": "知识库/figure",
+        "count": 17
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+        "count": 8
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质",
+        "count": 7
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+        "count": 6
+      },
+      {
+        "folder": "知识库/奢侈品牌 ／ 时尚",
+        "count": 6
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+        "count": 5
+      },
+      {
+        "folder": "知识库/lace",
+        "count": 4
+      },
+      {
+        "folder": "知识库/图案 · 纹样 · 材质 · 20世纪上半",
+        "count": 2
+      },
+      {
+        "folder": "知识库/腕表",
+        "count": 2
+      },
+      {
+        "folder": "知识库/电商图片",
+        "count": 1
+      },
+      {
+        "folder": "知识库/题库",
+        "count": 1
+      }
+    ],
+    "samples": [],
+    "children": [
+      {
+        "name": "品牌视觉元素与标识体系",
+        "path": "05 · 视觉设计、纹样与工艺知识库/品牌视觉元素与标识体系",
+        "count": 109,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 109,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 109
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "count": 79
+          },
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 标识体系",
+            "count": 30
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_08311_4G_老花",
+            "title": "4G 老花",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08312_四叶幸运草",
+            "title": "四叶幸运草",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08313_收腰套装",
+            "title": "收腰套装",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08314_黑金",
+            "title": "黑金",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08315_黑白盒",
+            "title": "黑白盒",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08316_格纹真伪",
+            "title": "格纹真伪",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08317_藤格纹",
+            "title": "藤格纹",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08318_英伦格纹",
+            "title": "英伦格纹",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品牌视觉元素",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "品类形制与商品结构",
+        "path": "05 · 视觉设计、纹样与工艺知识库/品类形制与商品结构",
+        "count": 79,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 79,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 79
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "count": 79
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_05000_Gentle_Monster_超大框眼镜",
+            "title": "Gentle Monster 超大框眼镜",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05001_Oakley_Holbrook_眼镜",
+            "title": "Oakley Holbrook 眼镜",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05002_Oakley_Lens_Wayfarer_眼镜",
+            "title": "Oakley Lens Wayfarer 眼镜",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08411_水生调",
+            "title": "水生调",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08412_喷头",
+            "title": "喷头",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08413_后调",
+            "title": "后调",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08414_双耳瓶",
+            "title": "双耳瓶",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08415_圆柱瓶",
+            "title": "圆柱瓶",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 品类形制",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "图案与纹样",
+        "path": "05 · 视觉设计、纹样与工艺知识库/图案与纹样",
+        "count": 73,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 73,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 73
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+            "count": 31
+          },
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+            "count": 21
+          },
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+            "count": 8
+          },
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+            "count": 6
+          },
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+            "count": 5
+          },
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 20世纪上半",
+            "count": 2
+          }
+        ],
+        "samples": [],
+        "children": [
+          {
+            "name": "19世纪",
+            "path": "05 · 视觉设计、纹样与工艺知识库/图案与纹样/19世纪",
+            "count": 5,
+            "matched": 0,
+            "pending": 0,
+            "unmatched": 5,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 5
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+                "count": 5
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_08282_新艺术",
+                "title": "新艺术",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08283_洋葱形曲线",
+                "title": "洋葱形曲线",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08284_佩斯利_火腿纹",
+                "title": "佩斯利/火腿纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08285_茹伊印花",
+                "title": "茹伊印花",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08535_提花",
+                "title": "提花",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 19世纪",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "20世纪上半",
+            "path": "05 · 视觉设计、纹样与工艺知识库/图案与纹样/20世纪上半",
+            "count": 2,
+            "matched": 0,
+            "pending": 0,
+            "unmatched": 2,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 2
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/图案 · 纹样 · 材质 · 20世纪上半",
+                "count": 2
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_08286_装饰艺术",
+                "title": "装饰艺术",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 20世纪上半",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08287_人字_雪佛龙",
+                "title": "人字/雪佛龙",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 20世纪上半",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "古典—中世纪",
+            "path": "05 · 视觉设计、纹样与工艺知识库/图案与纹样/古典—中世纪",
+            "count": 21,
+            "matched": 0,
+            "pending": 0,
+            "unmatched": 21,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 21
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "count": 21
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_08257_宝相花",
+                "title": "宝相花",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08258_缠枝纹_蔓草纹_",
+                "title": "缠枝纹（蔓草纹）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08259_梅兰竹菊",
+                "title": "梅兰竹菊",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08260_牡丹纹",
+                "title": "牡丹纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08261_如意纹",
+                "title": "如意纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08262_莨苕叶",
+                "title": "莨苕叶",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08263_大马士革纹",
+                "title": "大马士革纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08264_回纹_希腊钥匙",
+                "title": "回纹/希腊钥匙",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 古典—中世纪",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "史前—古代",
+            "path": "05 · 视觉设计、纹样与工艺知识库/图案与纹样/史前—古代",
+            "count": 6,
+            "matched": 0,
+            "pending": 0,
+            "unmatched": 6,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 6
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+                "count": 6
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_08251_凤纹",
+                "title": "凤纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08252_回纹",
+                "title": "回纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08253_龙纹",
+                "title": "龙纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08254_饕餮纹",
+                "title": "饕餮纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08255_万字纹_卍_",
+                "title": "万字纹（卍）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08256_云雷纹",
+                "title": "云雷纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 史前—古代",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "地域性传统纹样",
+            "path": "05 · 视觉设计、纹样与工艺知识库/图案与纹样/地域性传统纹样",
+            "count": 31,
+            "matched": 0,
+            "pending": 0,
+            "unmatched": 31,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 31
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "count": 31
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_08266_阿拉伯式花纹",
+                "title": "阿拉伯式花纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08288_苗蜡染",
+                "title": "苗蜡染",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08289_葫芦纹",
+                "title": "葫芦纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08290_莲花纹",
+                "title": "莲花纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08291_苗龙_苗绣纹",
+                "title": "苗龙/苗绣纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08292_八宝纹_八吉祥_",
+                "title": "八宝纹（八吉祥）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08293_十二章纹",
+                "title": "十二章纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08294_寿字纹",
+                "title": "寿字纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 地域性传统工艺",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "文艺复兴—18世纪",
+            "path": "05 · 视觉设计、纹样与工艺知识库/图案与纹样/文艺复兴—18世纪",
+            "count": 8,
+            "matched": 0,
+            "pending": 0,
+            "unmatched": 8,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 8
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "count": 8
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_04998_巴洛克",
+                "title": "巴洛克",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08276_蝙蝠纹",
+                "title": "蝙蝠纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08277_海水江崖纹",
+                "title": "海水江崖纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08278_麒麟纹",
+                "title": "麒麟纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08279_云肩纹",
+                "title": "云肩纹",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08280_中国风",
+                "title": "中国风",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08281_洛可可",
+                "title": "洛可可",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08534_妆花_织金",
+                "title": "妆花/织金",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/图案 · 纹样 · 材质 · 文艺复兴—18世纪",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "时尚与品类设计手册",
+        "path": "05 · 视觉设计、纹样与工艺知识库/时尚与品类设计手册",
+        "count": 8,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 8,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 8
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/奢侈品牌 ／ 时尚",
+            "count": 6
+          },
+          {
+            "folder": "知识库/腕表",
+            "count": 2
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_05081_奢侈品牌设计代码手册",
+            "title": "奢侈品牌设计代码手册",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/奢侈品牌 ／ 时尚",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05083_时装史编年与轮廓演变",
+            "title": "时装史编年与轮廓演变",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/奢侈品牌 ／ 时尚",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05084_包型图鉴_形制与判据",
+            "title": "包型图鉴：形制与判据",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/奢侈品牌 ／ 时尚",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05086_鞋履图鉴",
+            "title": "鞋履图鉴",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/奢侈品牌 ／ 时尚",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05087_眼镜镜型图鉴",
+            "title": "眼镜镜型图鉴",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/奢侈品牌 ／ 时尚",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05088_IP_上游公司图谱_动画_游戏_玩具_媒体_",
+            "title": "IP 上游公司图谱（动画 · 游戏 · 玩具 · 媒体）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/奢侈品牌 ／ 时尚",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05082_珠宝切工与腕表功能速查",
+            "title": "珠宝切工与腕表功能速查",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/腕表",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_05085_腕表表款图鉴",
+            "title": "腕表表款图鉴",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/腕表",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "材质、宝石与织物工艺",
+        "path": "05 · 视觉设计、纹样与工艺知识库/材质、宝石与织物工艺",
+        "count": 77,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 77,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 77
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 材质",
+            "count": 45
+          },
+          {
+            "folder": "知识库/图案 · 纹样 · 材质 · 工艺",
+            "count": 28
+          },
+          {
+            "folder": "知识库/lace",
+            "count": 4
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_08581_内衣蕾丝_27_张_",
+            "title": "内衣蕾丝（27 张）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/lace",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08582_外套蕾丝_12_张_",
+            "title": "外套蕾丝（12 张）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/lace",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08583_运动_休闲面料_10_张_",
+            "title": "运动 / 休闲面料（10 张）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/lace",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08584_工艺_设备_证书_10_张_",
+            "title": "工艺 / 设备 / 证书（10 张）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/lace",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08543_贴布绣",
+            "title": "贴布绣",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 工艺",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08544_珠绣",
+            "title": "珠绣",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 工艺",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08545_织锦缎",
+            "title": "织锦缎",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 工艺",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08546_英式镂空绣",
+            "title": "英式镂空绣",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质 · 工艺",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "综合手册、实操与题库",
+        "path": "05 · 视觉设计、纹样与工艺知识库/综合手册、实操与题库",
+        "count": 9,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 9,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 9
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/图案 · 纹样 · 材质",
+            "count": 7
+          },
+          {
+            "folder": "知识库/电商图片",
+            "count": 1
+          },
+          {
+            "folder": "知识库/题库",
+            "count": 1
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_08370_图案与纹样图鉴",
+            "title": "图案与纹样图鉴",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08401_Logo_体系与商标显著性手册",
+            "title": "Logo 体系与商标显著性手册",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08402_亚文化视觉词典",
+            "title": "亚文化视觉词典",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08403_字体排印与品牌用字",
+            "title": "字体排印与品牌用字",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08435_香水结构与瓶身包装",
+            "title": "香水结构与瓶身包装",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08530_宝石种类与识别速查",
+            "title": "宝石种类与识别速查",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08580_刺绣_皮革与丝织工艺",
+            "title": "刺绣、皮革与丝织工艺",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/图案 · 纹样 · 材质",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08665_电商图片风格与仿冒识别实操",
+            "title": "电商图片风格与仿冒识别实操",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/电商图片",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "设计史与艺术大师",
+        "path": "05 · 视觉设计、纹样与工艺知识库/设计史与艺术大师",
+        "count": 17,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 17,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 17
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/figure",
+            "count": 17
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_05011_查尔斯_雷尼_麦金托什_Charles_Rennie_Mackintosh_",
+            "title": "查尔斯·雷尼·麦金托什（Charles Rennie Mackintosh）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08609_亨利_卢梭_Henri_Rousseau_",
+            "title": "亨利·卢梭（Henri Rousseau）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08610_恩斯特_海克尔_Ernst_Haeckel_",
+            "title": "恩斯特·海克尔（Ernst Haeckel）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08611_威廉_莫里斯_William_Morris_",
+            "title": "威廉·莫里斯（William Morris）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08612_欧文_琼斯_Owen_Jones_",
+            "title": "欧文·琼斯（Owen Jones）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08613_克里斯托弗_德雷瑟_Christopher_Dresser_",
+            "title": "克里斯托弗·德雷瑟（Christopher Dresser）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08614_阿尔丰斯_穆夏_Alphonse_Mucha_",
+            "title": "阿尔丰斯·穆夏（Alphonse Mucha）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_08615_埃米尔_加莱_Émile_Gallé_",
+            "title": "埃米尔·加莱（Émile Gallé）",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/figure",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      }
+    ],
+    "description": "按历史分期重构图案纹样，整合品牌视觉元素、商品品类形制、材质工艺与艺术大师手册。"
+  },
+  {
+    "name": "06 · 审核规则与 Prompt 模板",
+    "path": "06 · 审核规则与 Prompt 模板",
+    "count": 530,
+    "matched": 260,
+    "pending": 100,
+    "unmatched": 170,
+    "anomalyCount": 0,
+    "origins": {
+      "kb": 270,
+      "tpl": 260
+    },
+    "legacyFolders": [
+      {
+        "folder": "模版库",
+        "count": 260
+      },
+      {
+        "folder": "知识库/audit_其他",
+        "count": 117
+      },
+      {
+        "folder": "知识库/audit_通用规则",
+        "count": 33
+      },
+      {
+        "folder": "知识库/audit_院校／机构",
+        "count": 28
+      },
+      {
+        "folder": "知识库/audit_动漫／游戏",
+        "count": 25
+      },
+      {
+        "folder": "知识库/audit_车型",
+        "count": 17
+      },
+      {
+        "folder": "知识库/audit_品牌／商标",
+        "count": 15
+      },
+      {
+        "folder": "知识库/audit_音乐／乐队",
+        "count": 14
+      },
+      {
+        "folder": "知识库/audit_体育明星",
+        "count": 8
+      },
+      {
+        "folder": "知识库/audit_运动／球衣",
+        "count": 7
+      },
+      {
+        "folder": "知识库/audit_影视／角色",
+        "count": 5
+      },
+      {
+        "folder": "知识库/audit_口红／彩妆",
+        "count": 1
+      }
+    ],
+    "samples": [],
+    "children": [
+      {
+        "name": "标准化审核模板库",
+        "path": "06 · 审核规则与 Prompt 模板/标准化审核模板库",
+        "count": 260,
+        "matched": 260,
+        "pending": 0,
+        "unmatched": 0,
+        "anomalyCount": 0,
+        "origins": {
+          "tpl": 260
+        },
+        "legacyFolders": [
+          {
+            "folder": "模版库",
+            "count": 260
+          }
+        ],
+        "samples": [
+          {
+            "docId": "tpl_511",
+            "title": "IP_511_1103_V2",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          },
+          {
+            "docId": "tpl_abba",
+            "title": "ip-abba",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          },
+          {
+            "docId": "tpl_acdcllm",
+            "title": "ip_acdcllm",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          },
+          {
+            "docId": "tpl_adventuretime",
+            "title": "IP_ADVENTURETIME_db_01",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          },
+          {
+            "docId": "tpl_agv",
+            "title": "IP_AGV",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          },
+          {
+            "docId": "tpl_alemannia_aachen",
+            "title": "ip_Alemannia Aachen",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          },
+          {
+            "docId": "tpl_alexandermcqueen",
+            "title": "IP_alexandermcqueen",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          },
+          {
+            "docId": "tpl_all_blacks",
+            "title": "新西兰全黑队 (All Blacks)",
+            "origin": "tpl",
+            "status": "matched",
+            "legacyFolder": "模版库",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "name": "行业专项审核",
+        "path": "06 · 审核规则与 Prompt 模板/行业专项审核",
+        "count": 237,
+        "matched": 0,
+        "pending": 100,
+        "unmatched": 137,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 237
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/audit_其他",
+            "count": 117
+          },
+          {
+            "folder": "知识库/audit_院校／机构",
+            "count": 28
+          },
+          {
+            "folder": "知识库/audit_动漫／游戏",
+            "count": 25
+          },
+          {
+            "folder": "知识库/audit_车型",
+            "count": 17
+          },
+          {
+            "folder": "知识库/audit_品牌／商标",
+            "count": 15
+          },
+          {
+            "folder": "知识库/audit_音乐／乐队",
+            "count": 14
+          },
+          {
+            "folder": "知识库/audit_体育明星",
+            "count": 8
+          },
+          {
+            "folder": "知识库/audit_运动／球衣",
+            "count": 7
+          },
+          {
+            "folder": "知识库/audit_影视／角色",
+            "count": 5
+          },
+          {
+            "folder": "知识库/audit_口红／彩妆",
+            "count": 1
+          }
+        ],
+        "samples": [],
+        "children": [
+          {
+            "name": "体育、院校与机构",
+            "path": "06 · 审核规则与 Prompt 模板/行业专项审核/体育、院校与机构",
+            "count": 43,
+            "matched": 0,
+            "pending": 17,
+            "unmatched": 26,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 43
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/audit_院校／机构",
+                "count": 28
+              },
+              {
+                "folder": "知识库/audit_体育明星",
+                "count": 8
+              },
+              {
+                "folder": "知识库/audit_运动／球衣",
+                "count": 7
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_00279_NOVAK_DJOKOVICselfmodel",
+                "title": "NOVAK DJOKOVICselfmodel",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07643_洛奇",
+                "title": "洛奇",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07655_ip_sport_star_prompt",
+                "title": "ip-sport star-prompt",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08626_IP_Lionel_Messi",
+                "title": "IP-Lionel Messi",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08630_穆罕默德",
+                "title": "穆罕默德",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08632_muhammadali",
+                "title": "muhammadali",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08636_ip_Maradona",
+                "title": "ip-Maradona",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_08638_ip_Neymar",
+                "title": "ip-Neymar",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_体育明星",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "动漫、影视与游戏",
+            "path": "06 · 审核规则与 Prompt 模板/行业专项审核/动漫、影视与游戏",
+            "count": 30,
+            "matched": 0,
+            "pending": 13,
+            "unmatched": 17,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 30
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/audit_动漫／游戏",
+                "count": 25
+              },
+              {
+                "folder": "知识库/audit_影视／角色",
+                "count": 5
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_00008_我的英雄学院_My_Hero_Academia_",
+                "title": "我的英雄学院（My Hero Academia）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00270_IP_Warhammer_llm_black",
+                "title": "IP-Warhammer-llm-black",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00280_brawlstarsselfmodel",
+                "title": "brawlstarsselfmodel",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00296_kirby",
+                "title": "kirby",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00329_ip_clash_royale",
+                "title": "ip_clash royale",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00333_IP_cars_aurelia_llm_black",
+                "title": "IP-cars-aurelia-llm-black",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00334_hemier_cars_selfmodel",
+                "title": "hemier-cars-selfmodel",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00336_chainsawman",
+                "title": "chainsawman",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_动漫／游戏",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "品牌、商标与美妆",
+            "path": "06 · 审核规则与 Prompt 模板/行业专项审核/品牌、商标与美妆",
+            "count": 16,
+            "matched": 0,
+            "pending": 6,
+            "unmatched": 10,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 16
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/audit_品牌／商标",
+                "count": 15
+              },
+              {
+                "folder": "知识库/audit_口红／彩妆",
+                "count": 1
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_05090_ck_perfume",
+                "title": "ck_perfume",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_口红／彩妆",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00426_马丁_马吉拉_Maison_Margiela_",
+                "title": "马丁·马吉拉（Maison Margiela）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_品牌／商标",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05010_oakley",
+                "title": "oakley",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_品牌／商标",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05031_卡骆驰_Crocs_鞋花_智必星",
+                "title": "卡骆驰（Crocs）鞋花 / 智必星",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_品牌／商标",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05073_Amiri_Amiri_",
+                "title": "Amiri（Amiri）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_品牌／商标",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05074_Supreme_Supreme_",
+                "title": "Supreme（Supreme）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_品牌／商标",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05075_IP组_supreme_图像识别",
+                "title": "IP组-supreme-图像识别",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_品牌／商标",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_05076_亚历山大_麦昆_Alexander_McQueen_",
+                "title": "亚历山大·麦昆（Alexander McQueen）",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_品牌／商标",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "汽车与车型",
+            "path": "06 · 审核规则与 Prompt 模板/行业专项审核/汽车与车型",
+            "count": 17,
+            "matched": 0,
+            "pending": 9,
+            "unmatched": 8,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 17
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/audit_车型",
+                "count": 17
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_00261_AUDIselfmodel",
+                "title": "AUDIselfmodel",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00262_AudiAccessories_prompt",
+                "title": "AudiAccessories_prompt",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00263_ip_audi",
+                "title": "ip_audi",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00264_ip_audit_feedback_optimizer",
+                "title": "ip_audit_feedback_optimizer",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00265_ip_brand_alliance_auditor",
+                "title": "ip_brand_alliance_auditor",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00266_ip_brand_collab_auditor",
+                "title": "ip_brand_collab_auditor",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00269_ip_bentley_prompt",
+                "title": "ip_bentley_prompt",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00274_chevrolet",
+                "title": "chevrolet",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_车型",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "综合专项与模型规则",
+            "path": "06 · 审核规则与 Prompt 模板/行业专项审核/综合专项与模型规则",
+            "count": 117,
+            "matched": 0,
+            "pending": 48,
+            "unmatched": 69,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 117
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/audit_其他",
+                "count": 117
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_00001_Apple",
+                "title": "Apple",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00221_卡尔文",
+                "title": "卡尔文",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00271_ip_my_dress_llm_black",
+                "title": "ip-my dress-llm-black",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00272_ip_allblacks",
+                "title": "ip_allblacks",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00277_DSQUARED2selfmodel",
+                "title": "DSQUARED2selfmodel",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00281_cohibaselfmodel",
+                "title": "cohibaselfmodel",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00282_hemier_league_selfmodel",
+                "title": "hemier-league-selfmodel",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_00283_littlemissselfmodel",
+                "title": "littlemissselfmodel",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_其他",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "音乐与乐队",
+            "path": "06 · 审核规则与 Prompt 模板/行业专项审核/音乐与乐队",
+            "count": 14,
+            "matched": 0,
+            "pending": 7,
+            "unmatched": 7,
+            "anomalyCount": 0,
+            "origins": {
+              "kb": 14
+            },
+            "legacyFolders": [
+              {
+                "folder": "知识库/audit_音乐／乐队",
+                "count": 14
+              }
+            ],
+            "samples": [
+              {
+                "docId": "kb_00323_taylorswift",
+                "title": "taylorswift",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07639_Band2",
+                "title": "Band2",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07640_Band",
+                "title": "Band",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07645_ip_One_Direction_prompt",
+                "title": "ip-One Direction-prompt",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07648_ip_abba",
+                "title": "ip-abba",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07649_ip_kpop",
+                "title": "ip-kpop",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07652_ip_nirvana",
+                "title": "ip_nirvana",
+                "origin": "kb",
+                "status": "pending",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              },
+              {
+                "docId": "kb_07653_ip_nirvana2",
+                "title": "ip_nirvana2",
+                "origin": "kb",
+                "status": "unmatched",
+                "legacyFolder": "知识库/audit_音乐／乐队",
+                "isAnomaly": false
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "通用审核与风控规则",
+        "path": "06 · 审核规则与 Prompt 模板/通用审核与风控规则",
+        "count": 33,
+        "matched": 0,
+        "pending": 0,
+        "unmatched": 33,
+        "anomalyCount": 0,
+        "origins": {
+          "kb": 33
+        },
+        "legacyFolders": [
+          {
+            "folder": "知识库/audit_通用规则",
+            "count": 33
+          }
+        ],
+        "samples": [
+          {
+            "docId": "kb_00222_black_word_risk_reviewer",
+            "title": "black_word_risk_reviewer",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00260_tro_brandname_alignment_gemini_similar_g",
+            "title": "tro_brandname_alignment_gemini_similar_goods_scene",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00276_ip_brand_alliance_discoverer",
+            "title": "ip_brand_alliance_discoverer",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00292_crawlplatform_anti_risk",
+            "title": "crawlplatform_anti_risk",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00300_ip_brand_gemini_general",
+            "title": "ip_brand_gemini_general",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00301_ip_brand_gemini_general_andy_wan",
+            "title": "ip_brand_gemini_general_andy_wan",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00302_ip_brand_general_analy_gemini",
+            "title": "ip_brand_general_analy_gemini",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          },
+          {
+            "docId": "kb_00303_ip_cluster_gemini",
+            "title": "ip_cluster_gemini",
+            "origin": "kb",
+            "status": "unmatched",
+            "legacyFolder": "知识库/audit_通用规则",
+            "isAnomaly": false
+          }
+        ],
+        "children": []
+      }
+    ],
+    "description": "收口零散的 audit_* 专项审核文档与标准化模版库，便于联调对比与跨库查重。"
+  },
+  {
+    "name": "99 · 待清理与异常元数据",
+    "path": "99 · 待清理与异常元数据",
+    "count": 2,
+    "matched": 2,
+    "pending": 0,
+    "unmatched": 0,
+    "anomalyCount": 2,
+    "origins": {
+      "logo": 2
+    },
+    "legacyFolders": [
+      {
+        "folder": "Logo库/brand_logos+emblems+flags+regional",
+        "count": 1
+      },
+      {
+        "folder": "Logo库/emblems",
+        "count": 1
+      }
+    ],
+    "samples": [
+      {
+        "docId": "logo_MANIFEST",
+        "title": "MANIFEST",
+        "origin": "logo",
+        "status": "matched",
+        "legacyFolder": "Logo库/brand_logos+emblems+flags+regional",
+        "isAnomaly": true
+      },
+      {
+        "docId": "logo_emblem",
+        "title": "emblem",
+        "origin": "logo",
+        "status": "matched",
+        "legacyFolder": "Logo库/emblems",
+        "isAnomaly": true
+      }
+    ],
+    "children": [],
+    "description": "隔离扫描残留的 MANIFEST 索引及占位符等脏元数据条目，避免污染主检索树。"
+  }
+];
